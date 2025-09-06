@@ -1,0 +1,32 @@
+{
+    "name": "fasync/promise",
+    "description": "Promise A+ implementation with cancellation support",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Fasync\\Promise\\": "src/"
+        },
+        "files": [
+            "src/Helpers/global_functions.php",
+            "src/Helpers/namespace_functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Reymart A. Calicdan",
+            "email": "reymart.calicdan06@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "pestphp/pest": "^4.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

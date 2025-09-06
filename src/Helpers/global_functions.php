@@ -1,0 +1,179 @@
+<?php
+
+use Fasync\Promise\Interfaces\CancellablePromiseInterface;
+use Fasync\Promise\Interfaces\PromiseInterface;
+use Fasync\Promise\Promise;
+
+if (! function_exists('all')) {
+    /**
+     * Wait for all promises to resolve and return their results in order.
+     *
+     * Creates a promise that resolves when all input promises resolve, with
+     * an array of their results in the same order. If any promise rejects,
+     * the returned promise immediately rejects with the first rejection reason.
+     *
+     * @param  array<mixed>  $promises  Array of promises to wait for
+     * @return PromiseInterface<array<mixed>> A promise that resolves with an array of all results
+     *
+     * @example
+     * $results = await(all([
+     *     http_get('https://api1.example.com'),
+     *     http_get('https://api2.example.com')
+     * ]));
+     */
+    function all(array $promises): PromiseInterface
+    {
+        return Promise::all($promises);
+    }
+}
+
+if (! function_exists('race')) {
+    /**
+     * Return the first promise to settle (resolve or reject).
+     *
+     * Creates a promise that settles with the same value/reason as the first
+     * promise in the array to settle. Useful for timeout scenarios or when
+     * you need the fastest response from multiple sources.
+     *
+     * @param  array<PromiseInterface<mixed>>  $promises  Array of promises to race
+     * @return PromiseInterface<mixed> A promise that settles with the first result
+     *
+     * @example
+     * $fastest = await(race([
+     *     http_get('https://api1.example.com'),
+     *     http_get('https://api2.example.com')
+     * ]));
+     */
+    function race(array $promises): PromiseInterface
+    {
+        return Promise::race($promises);
+    }
+}
+
+if (! function_exists('any')) {
+    /**
+     * Wait for any promise in the collection to resolve.
+     *
+     * Returns a promise that resolves with the value of the first
+     * promise that resolves, or rejects if all promises reject.
+     *
+     * @param  array<PromiseInterface<mixed>>  $promises  Array of promises to wait for
+     * @return PromiseInterface<mixed> A promise that resolves with the first settled value
+     *
+     * @example
+     * $promises = [
+     *     http_get('https://api1.example.com'),
+     *     http_get('https://api2.example.com'),
+     *     http_get('https://api3.example.com')
+     * ];
+     * $result = await(any($promises)); // Resolves with the first settled value
+     */
+    function any(array $promises): PromiseInterface
+    {
+        return Promise::any($promises);
+    }
+}
+
+if (! function_exists('timeout')) {
+    /**
+     * Run an async operation with a timeout limit.
+     *
+     * Executes the provided promises and ensures they complete within the
+     * operation and automatically throws execption if the timout timer won.
+     *
+     * @param  callable|PromiseInterface<mixed>|array<PromiseInterface<mixed>>  $promises  Number of seconds to wait before resolving
+     * @param  float  $seconds  Number of seconds to wait before resolving
+     * @return CancellablePromiseInterface<mixed> A promise that resolves after the delay
+     */
+    function timeout(callable|PromiseInterface|array $promises, float $seconds): CancellablePromiseInterface
+    {
+        return Promise::timeout($promises, $seconds);
+    }
+}
+
+if (! function_exists('resolved')) {
+    /**
+     * Create a promise that is already resolved with the given value.
+     *
+     * This is useful for creating resolved promises in async workflows or
+     * for converting synchronous values into promise-compatible form.
+     *
+     * @template T
+     *
+     * @param  T  $value  The value to resolve the promise with
+     * @return PromiseInterface<T> A promise resolved with the provided value
+     *
+     * @example
+     * $promise = resolve('Hello World');
+     * $result = await($promise); // 'Hello World'
+     */
+    function resolved(mixed $value): PromiseInterface
+    {
+        return Promise::resolved($value);
+    }
+}
+
+if (! function_exists('rejected')) {
+    /**
+     * Create a promise that is already rejected with the given reason.
+     *
+     * This is useful for creating rejected promises in async workflows or
+     * for converting exceptions into promise-compatible form.
+     *
+     * @param  mixed  $reason  The reason for rejection (typically an exception)
+     * @return PromiseInterface<never> A promise rejected with the provided reason
+     *
+     * @example
+     * $promise = reject(new Exception('Something went wrong'));
+     */
+    function rejected(mixed $reason): PromiseInterface
+    {
+        return Promise::rejected($reason);
+    }
+}
+
+if (! function_exists('concurrent')) {
+    /**
+     * Execute multiple tasks concurrently with a specified concurrency limit.
+     *
+     * IMPORTANT: For proper concurrency control, tasks should be callables that return
+     * Promises, not pre-created Promise instances. Pre-created Promises are already
+     * running and cannot be subject to concurrency limiting.
+     *
+     * @param  array<callable|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
+     *                                                          Note: Promise instances will be awaited but cannot be truly
+     *                                                          limited since they're already running
+     * @param  int  $concurrency  Maximum number of tasks to run simultaneously
+     * @return PromiseInterface<array<mixed>> Promise that resolves with an array of all results
+     */
+    function concurrent(array $tasks, int $concurrency = 10): PromiseInterface
+    {
+        return Promise::concurrent($tasks, $concurrency);
+    }
+}
+
+if (! function_exists('batch')) {
+    /**
+     * Execute multiple tasks in batches with a concurrency limit.
+     *
+     * This method processes tasks in smaller batches, allowing for controlled
+     * concurrency and resource management. It is particularly useful for
+     * processing large datasets or performing operations that require
+     * significant resources without overwhelming the system.
+     *
+     * @param  array<callable|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
+     *                                                          Note: Promise instances will be awaited but cannot be truly
+     *                                                          limited since they're already running
+     * @param  int  $batchSize  Size of each batch to process concurrently
+     * @param  int|null  $concurrency  Maximum number of concurrent executions per batch
+     * @return PromiseInterface<array<mixed>> A promise that resolves with all results
+     *
+     * @example
+     * $tasks = array_map(fn($url) => fn() => http_get($url), $urls);
+     * $results = await(batch($tasks, 100, 5));
+     */
+    function batch(array $tasks, int $batchSize = 10, ?int $concurrency = null): PromiseInterface
+    {
+        return Promise::batch($tasks, $batchSize, $concurrency);
+    }
+}
