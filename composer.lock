@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d94392a1590770a705668b7bc40fb5dd",
+    "content-hash": "f2c945499185d6b8253f53449b012d58",
     "packages": [
         {
             "name": "fasync/async",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FAsync/Async.git",
-                "reference": "45fd41bae2317bf0bd1282fcd3d3c7f21f7327a8"
+                "reference": "905368bc62199e3f636754999b9b6954cd2427f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FAsync/Async/zipball/45fd41bae2317bf0bd1282fcd3d3c7f21f7327a8",
-                "reference": "45fd41bae2317bf0bd1282fcd3d3c7f21f7327a8",
+                "url": "https://api.github.com/repos/FAsync/Async/zipball/905368bc62199e3f636754999b9b6954cd2427f4",
+                "reference": "905368bc62199e3f636754999b9b6954cd2427f4",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
                 "issues": "https://github.com/FAsync/Async/issues",
                 "source": "https://github.com/FAsync/Async/tree/main"
             },
-            "time": "2025-09-06T07:03:34+00:00"
+            "time": "2025-09-06T07:06:35+00:00"
         },
         {
             "name": "fasync/event-loop",
@@ -61,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FAsync/EventLoop.git",
-                "reference": "b7ac5079205c0fb1bc5a736ab7a9378ac350bf2a"
+                "reference": "a2ae7d20c14d95e801d8a5965d279c23f132d223"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FAsync/EventLoop/zipball/b7ac5079205c0fb1bc5a736ab7a9378ac350bf2a",
-                "reference": "b7ac5079205c0fb1bc5a736ab7a9378ac350bf2a",
+                "url": "https://api.github.com/repos/FAsync/EventLoop/zipball/a2ae7d20c14d95e801d8a5965d279c23f132d223",
+                "reference": "a2ae7d20c14d95e801d8a5965d279c23f132d223",
                 "shasum": ""
             },
             "require": {
@@ -96,7 +96,7 @@
                 "issues": "https://github.com/FAsync/EventLoop/issues",
                 "source": "https://github.com/FAsync/EventLoop/tree/main"
             },
-            "time": "2025-09-06T07:03:25+00:00"
+            "time": "2025-09-06T07:07:01+00:00"
         }
     ],
     "packages-dev": [
@@ -241,6 +241,55 @@
                 "source": "https://github.com/doctrine/deprecations/tree/1.1.5"
             },
             "time": "2025-04-07T20:06:18+00:00"
+        },
+        {
+            "name": "fasync/task",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FAsync/Task.git",
+                "reference": "123b9a6d79d400301a9e4c55f634d8e188f3a868"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FAsync/Task/zipball/123b9a6d79d400301a9e4c55f634d8e188f3a868",
+                "reference": "123b9a6d79d400301a9e4c55f634d8e188f3a868",
+                "shasum": ""
+            },
+            "require": {
+                "fasync/async": "dev-main",
+                "fasync/event-loop": "dev-main",
+                "fasync/promise": "dev-main",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "pestphp/pest": "^4.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Helpers/global_functions.php"
+                ],
+                "psr-4": {
+                    "Fasync\\Task\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Reymart A. Calicdan"
+                }
+            ],
+            "description": "High level abstraction leyer for running asynchronous task wihout managin the eventloop",
+            "support": {
+                "issues": "https://github.com/FAsync/Task/issues",
+                "source": "https://github.com/FAsync/Task/tree/main"
+            },
+            "time": "2025-09-06T07:29:40+00:00"
         },
         {
             "name": "fidry/cpu-core-counter",
@@ -3963,7 +4012,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "fasync/async": 20,
-        "fasync/event-loop": 20
+        "fasync/event-loop": 20,
+        "fasync/task": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

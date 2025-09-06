@@ -29,7 +29,8 @@
         "fasync/async": "dev-main"
     },
     "require-dev": {
-        "pestphp/pest": "^4.0"
+        "pestphp/pest": "^4.0",
+        "fasync/task": "dev-main"
     },
     "config": {
         "allow-plugins": {

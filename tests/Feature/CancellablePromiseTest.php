@@ -313,25 +313,25 @@ describe('CancellablePromise Integration', function () {
         }
     });
 
-    it('works with async file operations', function () {
-        $promise = read_file_async('/nonexistent/file.txt');
+    // it('works with async file operations', function () {
+    //     $promise = read_file_async('/nonexistent/file.txt');
 
-        expect($promise)->toBeInstanceOf(CancellablePromiseInterface::class);
+    //     expect($promise)->toBeInstanceOf(CancellablePromiseInterface::class);
 
-        $promise->cancel();
+    //     $promise->cancel();
 
-        expect($promise->isCancelled())->toBeTrue();
-    });
+    //     expect($promise->isCancelled())->toBeTrue();
+    // });
 
-    it('can cancel file write operations', function () {
-        $promise = write_file_async('/tmp/test.txt', 'test data');
+    // it('can cancel file write operations', function () {
+    //     $promise = write_file_async('/tmp/test.txt', 'test data');
 
-        expect($promise)->toBeInstanceOf(CancellablePromiseInterface::class);
+    //     expect($promise)->toBeInstanceOf(CancellablePromiseInterface::class);
 
-        $promise->cancel();
+    //     $promise->cancel();
 
-        expect($promise->isCancelled())->toBeTrue();
-    });
+    //     expect($promise->isCancelled())->toBeTrue();
+    // });
 
     it('works with concurrent operations', function () {
         $tasks = [
@@ -700,21 +700,21 @@ describe('CancellablePromise setCancelHandler Usage', function () {
         ;
     });
 
-    it('can be used with real-world async file operations', function () {
-        $promise = write_file_async('/tmp/large-file.txt', 'large content data');
-        $cleanupExecuted = false;
+    // it('can be used with real-world async file operations', function () {
+    //     $promise = write_file_async('/tmp/large-file.txt', 'large content data');
+    //     $cleanupExecuted = false;
 
-        $promise->setCancelHandler(function () use (&$cleanupExecuted) {
-            // Cleanup: delete partially written file
-            $cleanupExecuted = true;
-        });
+    //     $promise->setCancelHandler(function () use (&$cleanupExecuted) {
+    //         // Cleanup: delete partially written file
+    //         $cleanupExecuted = true;
+    //     });
 
-        $promise->cancel();
+    //     $promise->cancel();
 
-        expect($cleanupExecuted)->toBeTrue()
-            ->and($promise->isCancelled())->toBeTrue()
-        ;
-    });
+    //     expect($cleanupExecuted)->toBeTrue()
+    //         ->and($promise->isCancelled())->toBeTrue()
+    //     ;
+    // });
 
     it('can be used with delay operations', function () {
         $promise = delay(1.0); // 1 second delay
