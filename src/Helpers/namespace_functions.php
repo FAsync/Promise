@@ -1,6 +1,6 @@
 <?php
 
-namespace Fasync;
+namespace Fasync\Promise;
 
 use Fasync\Promise\Interfaces\CancellablePromiseInterface;
 use Fasync\Promise\Interfaces\PromiseInterface;

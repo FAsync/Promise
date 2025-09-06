@@ -98,6 +98,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
      */
     public function await(bool $resetEventLoop = true): mixed
     {
+        $this->awaitHandler ??= new AwaitHandler;
         return $this->awaitHandler->await($this, $resetEventLoop);
     }
 
