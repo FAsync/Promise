@@ -1,5 +1,5 @@
 {
-    "name": "fasync/promise",
+    "name": "fasyncphp/promise",
     "description": "Promise A+ implementation with cancellation support",
     "type": "library",
     "license": "MIT",
@@ -25,12 +25,12 @@
     ],
     "require": {
         "php": "^8.2",
-        "fasync/event-loop": "dev-main",
-        "fasync/async": "dev-main"
+        "fasyncphp/event-loop": "dev-main",
+        "fasyncphp/async": "dev-main"
     },
     "require-dev": {
         "pestphp/pest": "^4.0",
-        "fasync/task": "dev-main"
+        "fasyncphp/task": "dev-main"
     },
     "config": {
         "allow-plugins": {
