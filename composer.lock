@@ -4,8 +4,99 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f68511f86eeb1c8e40c0e049a2efe28",
-    "packages": [],
+    "content-hash": "d94392a1590770a705668b7bc40fb5dd",
+    "packages": [
+        {
+            "name": "fasync/async",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FAsync/Async.git",
+                "reference": "94445f038bc16d6d5bedeb39b9bbe6df53c08d9f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FAsync/Async/zipball/94445f038bc16d6d5bedeb39b9bbe6df53c08d9f",
+                "reference": "94445f038bc16d6d5bedeb39b9bbe6df53c08d9f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "pestphp/pest": "^4.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Helpers/global_functions.php",
+                    "src/Helpers/namespace_functions.php"
+                ],
+                "psr-4": {
+                    "Fasync\\Async\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Reymart A. Calicdan"
+                }
+            ],
+            "description": "async/await implementation with structured concurrency.",
+            "support": {
+                "issues": "https://github.com/FAsync/Async/issues",
+                "source": "https://github.com/FAsync/Async/tree/main"
+            },
+            "time": "2025-09-06T05:17:33+00:00"
+        },
+        {
+            "name": "fasync/event-loop",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FAsync/EventLoop.git",
+                "reference": "219619cccf4e8da3eec8f96384beca5f85cb0959"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FAsync/EventLoop/zipball/219619cccf4e8da3eec8f96384beca5f85cb0959",
+                "reference": "219619cccf4e8da3eec8f96384beca5f85cb0959",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "pestphp/pest": "^4.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fasync\\EventLoop\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Reymart A. Calicdan"
+                }
+            ],
+            "description": "Fiber native eventloop for building block for heart of fasync libraries",
+            "support": {
+                "issues": "https://github.com/FAsync/EventLoop/issues",
+                "source": "https://github.com/FAsync/EventLoop/tree/main"
+            },
+            "time": "2025-09-06T05:17:43+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "brianium/paratest",
@@ -3868,10 +3959,15 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "fasync/async": 20,
+        "fasync/event-loop": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {},
+    "platform": {
+        "php": "^8.2"
+    },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

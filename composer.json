@@ -19,7 +19,9 @@
         }
     ],
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "fasync/event-loop": "dev-main",
+        "fasync/async": "dev-main"
     },
     "require-dev": {
         "pestphp/pest": "^4.0"
