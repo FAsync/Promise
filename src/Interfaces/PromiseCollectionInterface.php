@@ -1,6 +1,6 @@
 <?php
 
-namespace Fasync\Promise\Interfaces;
+namespace Hibla\Promise\Interfaces;
 
 /**
  * Interface for promise collection operations.

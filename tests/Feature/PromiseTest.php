@@ -1,8 +1,8 @@
 <?php
 
-use Fasync\Promise\CancellablePromise;
-use Fasync\Promise\Interfaces\PromiseInterface;
-use Fasync\Promise\Promise;
+use Hibla\Promise\CancellablePromise;
+use Hibla\Promise\Interfaces\PromiseInterface;
+use Hibla\Promise\Promise;
 
 describe('Promise', function () {
     beforeEach(function () {

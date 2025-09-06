@@ -1,6 +1,6 @@
 <?php
 
-namespace Fasync\Promise\Handlers;
+namespace Hibla\Promise\Handlers;
 
 use Exception;
 use Throwable;

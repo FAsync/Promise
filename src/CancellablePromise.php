@@ -1,9 +1,9 @@
 <?php
 
-namespace Fasync\Promise;
+namespace Hibla\Promise;
 
-use Fasync\EventLoop\EventLoop;
-use Fasync\Promise\Interfaces\CancellablePromiseInterface;
+use Hibla\EventLoop\EventLoop;
+use Hibla\Promise\Interfaces\CancellablePromiseInterface;
 
 /**
  * A promise that can be cancelled to clean up resources.

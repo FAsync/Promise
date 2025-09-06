@@ -1,17 +1,17 @@
 <?php
 
-namespace Fasync\Promise;
+namespace Hibla\Promise;
 
-use Fasync\Promise\Handlers\AwaitHandler;
-use Fasync\Async\AsyncOperations;
-use Fasync\Promise\Handlers\CallbackHandler;
-use Fasync\Promise\Handlers\ChainHandler;
-use Fasync\Promise\Handlers\ExecutorHandler;
-use Fasync\Promise\Handlers\ResolutionHandler;
-use Fasync\Promise\Handlers\StateHandler;
-use Fasync\Promise\Interfaces\CancellablePromiseInterface;
-use Fasync\Promise\Interfaces\PromiseCollectionInterface;
-use Fasync\Promise\Interfaces\PromiseInterface;
+use Hibla\Promise\Handlers\AwaitHandler;
+use Hibla\Async\AsyncOperations;
+use Hibla\Promise\Handlers\CallbackHandler;
+use Hibla\Promise\Handlers\ChainHandler;
+use Hibla\Promise\Handlers\ExecutorHandler;
+use Hibla\Promise\Handlers\ResolutionHandler;
+use Hibla\Promise\Handlers\StateHandler;
+use Hibla\Promise\Interfaces\CancellablePromiseInterface;
+use Hibla\Promise\Interfaces\PromiseCollectionInterface;
+use Hibla\Promise\Interfaces\PromiseInterface;
 
 /**
  * A Promise/A+ compliant implementation for managing asynchronous operations.

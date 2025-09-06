@@ -1,9 +1,9 @@
 <?php
 
-namespace Fasync\Promise\Handlers;
+namespace Hibla\Promise\Handlers;
 
-use Fasync\EventLoop\EventLoop;
-use Fasync\Promise\Interfaces\PromiseInterface;
+use Hibla\EventLoop\EventLoop;
+use Hibla\Promise\Interfaces\PromiseInterface;
 use Throwable;
 
 /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fasync\Promise\Handlers;
+namespace Hibla\Promise\Handlers;
 
-use Fasync\EventLoop\EventLoop;
+use Hibla\EventLoop\EventLoop;
 
 /**
  * Handles Promise resolution and rejection operations.

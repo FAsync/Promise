@@ -1,6 +1,6 @@
 <?php
 
-namespace Fasync\Promise\Interfaces;
+namespace Hibla\Promise\Interfaces;
 
 /**
  * Interface for promises that can be cancelled to clean up resources.

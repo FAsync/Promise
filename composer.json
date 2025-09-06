@@ -1,11 +1,11 @@
 {
-    "name": "fasyncphp/promise",
+    "name": "hiblaphp/promise",
     "description": "Promise A+ implementation with cancellation support",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Fasync\\Promise\\": "src/"
+            "Hibla\\Promise\\": "src/"
         },
         "files": [
             "src/Helpers/global_functions.php",
@@ -25,12 +25,12 @@
     ],
     "require": {
         "php": "^8.2",
-        "fasyncphp/event-loop": "dev-main",
-        "fasyncphp/async": "dev-main"
+        "hiblaphp/event-loop": "dev-main",
+        "hiblaphp/async": "dev-main"
     },
     "require-dev": {
         "pestphp/pest": "^4.0",
-        "fasyncphp/task": "dev-main"
+        "hiblaphp/task": "dev-main"
     },
     "config": {
         "allow-plugins": {

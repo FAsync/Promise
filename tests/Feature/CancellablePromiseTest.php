@@ -1,8 +1,8 @@
 <?php
 
-use Fasync\Promise\CancellablePromise;
-use Fasync\Promise\Interfaces\CancellablePromiseInterface;
-use Fasync\Promise\Interfaces\PromiseInterface;
+use Hibla\Promise\CancellablePromise;
+use Hibla\Promise\Interfaces\CancellablePromiseInterface;
+use Hibla\Promise\Interfaces\PromiseInterface;
 
 beforeEach(function () {
     resetTest();

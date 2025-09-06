@@ -1,8 +1,8 @@
 <?php
 
-use Fasync\Promise\Interfaces\CancellablePromiseInterface;
-use Fasync\Promise\Interfaces\PromiseInterface;
-use Fasync\Promise\Promise;
+use Hibla\Promise\Interfaces\CancellablePromiseInterface;
+use Hibla\Promise\Interfaces\PromiseInterface;
+use Hibla\Promise\Promise;
 
 if (! function_exists('all')) {
     /**
