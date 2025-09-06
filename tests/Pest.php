@@ -7,11 +7,12 @@
 */
 
 use Fasync\Promise\Promise;
-use Fasync\Async;
+use Fasync\Async\Async;
 use Fasync\EventLoop\EventLoop;
+use Tests\TestCase;
 
-pest()->extend(Tests\TestCase::class)->in('Feature');
-pest()->extend(Tests\TestCase::class)->in('Unit');
+pest()->extend(TestCase::class)->in('Feature');
+pest()->extend(TestCase::class)->in('Unit');
 
 /*
 |--------------------------------------------------------------------------
