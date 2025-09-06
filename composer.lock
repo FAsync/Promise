@@ -12,15 +12,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FAsync/Async.git",
-                "reference": "94445f038bc16d6d5bedeb39b9bbe6df53c08d9f"
+                "reference": "45fd41bae2317bf0bd1282fcd3d3c7f21f7327a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FAsync/Async/zipball/94445f038bc16d6d5bedeb39b9bbe6df53c08d9f",
-                "reference": "94445f038bc16d6d5bedeb39b9bbe6df53c08d9f",
+                "url": "https://api.github.com/repos/FAsync/Async/zipball/45fd41bae2317bf0bd1282fcd3d3c7f21f7327a8",
+                "reference": "45fd41bae2317bf0bd1282fcd3d3c7f21f7327a8",
                 "shasum": ""
             },
             "require": {
+                "fasync/event-loop": "dev-main",
+                "fasync/promise": "dev-main",
                 "php": "^8.2"
             },
             "require-dev": {
@@ -51,7 +53,7 @@
                 "issues": "https://github.com/FAsync/Async/issues",
                 "source": "https://github.com/FAsync/Async/tree/main"
             },
-            "time": "2025-09-06T05:17:33+00:00"
+            "time": "2025-09-06T07:03:34+00:00"
         },
         {
             "name": "fasync/event-loop",
@@ -59,12 +61,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FAsync/EventLoop.git",
-                "reference": "219619cccf4e8da3eec8f96384beca5f85cb0959"
+                "reference": "b7ac5079205c0fb1bc5a736ab7a9378ac350bf2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FAsync/EventLoop/zipball/219619cccf4e8da3eec8f96384beca5f85cb0959",
-                "reference": "219619cccf4e8da3eec8f96384beca5f85cb0959",
+                "url": "https://api.github.com/repos/FAsync/EventLoop/zipball/b7ac5079205c0fb1bc5a736ab7a9378ac350bf2a",
+                "reference": "b7ac5079205c0fb1bc5a736ab7a9378ac350bf2a",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +96,7 @@
                 "issues": "https://github.com/FAsync/EventLoop/issues",
                 "source": "https://github.com/FAsync/EventLoop/tree/main"
             },
-            "time": "2025-09-06T05:17:43+00:00"
+            "time": "2025-09-06T07:03:25+00:00"
         }
     ],
     "packages-dev": [
