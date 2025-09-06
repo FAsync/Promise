@@ -3,7 +3,7 @@
 namespace Fasync\Promise;
 
 use Fasync\Promise\Handlers\AwaitHandler;
-use Rcalicdan\FiberAsync\Async\AsyncOperations;
+use Fasync\Async\AsyncOperations;
 use Fasync\Promise\Handlers\CallbackHandler;
 use Fasync\Promise\Handlers\ChainHandler;
 use Fasync\Promise\Handlers\ExecutorHandler;
