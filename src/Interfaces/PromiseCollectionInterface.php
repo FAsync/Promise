@@ -85,8 +85,12 @@ interface PromiseCollectionInterface
 
     /**
      * Execute multiple tasks with a concurrency limit.
-     *
-     * Processes tasks in batches to avoid overwhelming the system
+     * 
+     * - IMPORTANT: For proper concurrency control, tasks should be callables that return
+     * Promises, not pre-created Promise instances. Pre-created Promises are already
+     * running and cannot be subject to concurrency limiting.
+     * 
+     * Processes tasks in parallel byt with concurrency limit to avoid overwhelming the system
      * with too many concurrent operations.
      *
      * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of tasks (callables or promises) to execute
@@ -97,6 +101,10 @@ interface PromiseCollectionInterface
 
     /**
      * Execute multiple tasks in batches with a concurrency limit.
+     * 
+     * - IMPORTANT: For proper concurrency control, tasks should be callables that return
+     * Promises, not pre-created Promise instances. Pre-created Promises are already
+     * running and cannot be subject to concurrency limiting.
      *
      * This method processes tasks in smaller batches, allowing for
      * controlled concurrency and resource management.
@@ -111,6 +119,10 @@ interface PromiseCollectionInterface
     /**
      * Execute multiple tasks concurrently with a specified concurrency limit and wait for all to settle.
      *
+     * - IMPORTANT: For proper concurrency control, tasks should be callables that return
+     * Promises, not pre-created Promise instances. Pre-created Promises are already
+     * running and cannot be subject to concurrency limiting.
+     *
      * Similar to concurrent(), but waits for all tasks to complete and returns settlement results.
      * This method never rejects - it always resolves with an array of settlement results.
      *
@@ -118,10 +130,14 @@ interface PromiseCollectionInterface
      * @param  int  $concurrency  Maximum number of concurrent executions
      * @return PromiseInterface<array<int|string, array{status: 'fulfilled'|'rejected', value?: mixed, reason?: mixed}>> A promise that resolves with settlement results
      */
-    public static function concurrentSettled(array $promises, int $concurrency = 10): PromiseInterface;
+    public static function concurrentSettled(array $tasks, int $concurrency = 10): PromiseInterface;
 
     /**
      * Execute multiple tasks in batches with a concurrency limit and wait for all to settle.
+     *
+     * - IMPORTANT: For proper concurrency control, tasks should be callables that return
+     * Promises, not pre-created Promise instances. Pre-created Promises are already
+     * running and cannot be subject to concurrency limiting.
      *
      * Similar to batch(), but waits for all tasks to complete and returns settlement results.
      * This method never rejects - it always resolves with an array of settlement results.

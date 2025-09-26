@@ -389,9 +389,9 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     /**
      * {@inheritdoc}
      */
-    public static function concurrentSettled(array $promises, int $concurrency = 10): PromiseInterface
+    public static function concurrentSettled(array $tasks, int $concurrency = 10): PromiseInterface
     {
-        return self::getAsyncOps()->concurrentSettled($promises, $concurrency);
+        return self::getAsyncOps()->concurrentSettled($tasks, $concurrency);
     }
 
     /**
