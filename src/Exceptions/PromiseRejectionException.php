@@ -36,15 +36,15 @@ class PromiseRejectionException extends Exception
         }
 
         if (is_scalar($reason)) {
-            return "{$reason}";
+            return "Promise rejected: {$reason}";
         }
 
         if (is_object($reason) && method_exists($reason, '__toString')) {
-            return "{$reason}";
+            return "Promise rejected: {$reason}";
         }
 
         $type = get_debug_type($reason);
 
-        return "Promise rejected with {$type}: ".print_r($reason, true);
+        return "Promise rejected with {$type}: " . print_r($reason, true);
     }
 }
