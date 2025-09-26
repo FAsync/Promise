@@ -118,7 +118,7 @@ interface PromiseCollectionInterface
      * @param  int  $concurrency  Maximum number of concurrent executions
      * @return PromiseInterface<array<int|string, array{status: 'fulfilled'|'rejected', value?: mixed, reason?: mixed}>> A promise that resolves with settlement results
      */
-    public static function concurrentSettled(array $promises): PromiseInterface;
+    public static function concurrentSettled(array $promises, int $concurrency = 10): PromiseInterface;
 
     /**
      * Execute multiple tasks in batches with a concurrency limit and wait for all to settle.

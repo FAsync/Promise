@@ -30,11 +30,16 @@
     },
     "require-dev": {
         "pestphp/pest": "^4.0",
-        "hiblaphp/task": "dev-main"
+        "hiblaphp/task": "dev-main",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-strict-rules": "^2.0"
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "analyze": "./vendor/bin/phpstan analyse"
     }
 }
