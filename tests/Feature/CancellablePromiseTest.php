@@ -299,11 +299,8 @@ describe('CancellablePromise Integration', function () {
     });
 
     it('can create timeout operations', function () {
-        $slowOperation = function () {
-            return delay(1.0); // 1 second delay
-        };
 
-        $promise = timeout($slowOperation, 0.1);
+        $promise = timeout(delay(0.1), 0.1);
 
         expect($promise)->toBeInstanceOf(PromiseInterface::class);
 

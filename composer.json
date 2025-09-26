@@ -41,5 +41,7 @@
     },
     "scripts": {
         "analyze": "./vendor/bin/phpstan analyse"
+        ,
+        "test": "./vendor/bin/pest"
     }
 }
