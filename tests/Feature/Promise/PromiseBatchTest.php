@@ -12,22 +12,17 @@ describe('Promise Batch Processing', function () {
             $executionOrder = [];
             $startTime = microtime(true);
 
-            $result = run(function () use (&$executionOrder) {
-                $tasks = [];
+            $tasks = [];
+            for ($i = 0; $i < 25; $i++) {
+                $tasks[] = function () use ($i, &$executionOrder) {
+                    return delay(0.1)->then(function () use ($i, &$executionOrder) {
+                        $executionOrder[] = $i;
+                        return "task-{$i}";
+                    });
+                };
+            }
 
-                for ($i = 0; $i < 25; $i++) {
-                    $tasks[] = function () use ($i, &$executionOrder) {
-                        return delay(0.1)->then(function () use ($i, &$executionOrder) {
-                            $executionOrder[] = $i;
-
-                            return "task-{$i}";
-                        });
-                    };
-                }
-
-                return await(Promise::batch($tasks, 5));
-            });
-
+            $result = Promise::batch($tasks, 5)->await();
             $executionTime = microtime(true) - $startTime;
 
             expect($executionTime)->toBeLessThan(0.8);
@@ -39,16 +34,12 @@ describe('Promise Batch Processing', function () {
         it('respects batch size parameter', function () {
             $startTime = microtime(true);
 
-            $result = run(function () {
-                $tasks = [];
+            $tasks = [];
+            for ($i = 0; $i < 7; $i++) {
+                $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
+            }
 
-                for ($i = 0; $i < 7; $i++) {
-                    $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
-                }
-
-                return await(Promise::batch($tasks, 3));
-            });
-
+            $result = Promise::batch($tasks, 3)->await();
             $executionTime = microtime(true) - $startTime;
 
             expect($result)->toHaveCount(7);
@@ -60,21 +51,17 @@ describe('Promise Batch Processing', function () {
             $executionTimes = [];
             $startTime = microtime(true);
 
-            run(function () use (&$executionTimes, $startTime) {
-                $tasks = [];
+            $tasks = [];
+            for ($i = 0; $i < 6; $i++) {
+                $tasks[] = function () use ($i, &$executionTimes, $startTime) {
+                    return delay(0.1)->then(function () use ($i, &$executionTimes, $startTime) {
+                        $executionTimes[] = microtime(true) - $startTime;
+                        return "task-{$i}";
+                    });
+                };
+            }
 
-                for ($i = 0; $i < 6; $i++) {
-                    $tasks[] = function () use ($i, &$executionTimes, $startTime) {
-                        return delay(0.1)->then(function () use ($i, &$executionTimes, $startTime) {
-                            $executionTimes[] = microtime(true) - $startTime;
-
-                            return "task-{$i}";
-                        });
-                    };
-                }
-
-                return await(Promise::batch($tasks, 2));
-            });
+            Promise::batch($tasks, 2)->await();
 
             expect($executionTimes[0])->toBeLessThan(0.15);
             expect($executionTimes[2])->toBeGreaterThan(0.18);
@@ -82,23 +69,19 @@ describe('Promise Batch Processing', function () {
         });
 
         it('handles empty task array', function () {
-            $result = run(function () {
-                return await(Promise::batch([], 5));
-            });
+            $result = Promise::batch([], 5)->await();
 
             expect($result)->toBe([]);
         });
 
         it('works with batch size larger than task count', function () {
-            $result = run(function () {
-                $tasks = [
-                    fn () => delay(0.05)->then(fn () => 'task-0'),
-                    fn () => delay(0.05)->then(fn () => 'task-1'),
-                    fn () => delay(0.05)->then(fn () => 'task-2'),
-                ];
+            $tasks = [
+                fn () => delay(0.05)->then(fn () => 'task-0'),
+                fn () => delay(0.05)->then(fn () => 'task-1'),
+                fn () => delay(0.05)->then(fn () => 'task-2'),
+            ];
 
-                return await(Promise::batch($tasks, 10));
-            });
+            $result = Promise::batch($tasks, 10)->await();
 
             expect($result)->toHaveCount(3);
             expect($result)->toBe(['task-0', 'task-1', 'task-2']);
@@ -106,16 +89,13 @@ describe('Promise Batch Processing', function () {
 
         it('handles task failures within a batch', function () {
             try {
-                run(function () {
-                    $tasks = [
-                        fn () => delay(0.05)->then(fn () => 'task-0'),
-                        fn () => delay(0.05)->then(fn () => throw new Exception('batch error')),
-                        fn () => delay(0.05)->then(fn () => 'task-2'),
-                    ];
+                $tasks = [
+                    fn () => delay(0.05)->then(fn () => 'task-0'),
+                    fn () => delay(0.05)->then(fn () => throw new Exception('batch error')),
+                    fn () => delay(0.05)->then(fn () => 'task-2'),
+                ];
 
-                    return await(Promise::batch($tasks, 2));
-                });
-
+                Promise::batch($tasks, 2)->await();
                 expect(false)->toBeTrue('Expected exception to be thrown');
             } catch (Exception $e) {
                 expect($e->getMessage())->toBe('batch error');
@@ -125,16 +105,12 @@ describe('Promise Batch Processing', function () {
         it('respects concurrency parameter when provided', function () {
             $startTime = microtime(true);
 
-            $result = run(function () {
-                $tasks = [];
+            $tasks = [];
+            for ($i = 0; $i < 6; $i++) {
+                $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
+            }
 
-                for ($i = 0; $i < 6; $i++) {
-                    $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
-                }
-
-                return await(Promise::batch($tasks, 3, 2));
-            });
-
+            $result = Promise::batch($tasks, 3, 2)->await();
             $executionTime = microtime(true) - $startTime;
 
             expect($result)->toHaveCount(6);
@@ -143,17 +119,14 @@ describe('Promise Batch Processing', function () {
         });
 
         it('maintains result order within and across batches', function () {
-            $result = run(function () {
-                $tasks = [];
+            $tasks = [];
+            for ($i = 0; $i < 6; $i++) {
+                $tasks[] = function () use ($i) {
+                    return delay(0.05)->then(fn () => "task-{$i}");
+                };
+            }
 
-                for ($i = 0; $i < 6; $i++) {
-                    $tasks[] = function () use ($i) {
-                        return delay(0.05)->then(fn () => "task-{$i}");
-                    };
-                }
-
-                return await(Promise::batch($tasks, 2));
-            });
+            $result = Promise::batch($tasks, 2)->await();
 
             expect($result)->toHaveCount(6);
             expect($result)->toContain('task-0');

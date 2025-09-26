@@ -9,13 +9,11 @@ describe('Promise Static Methods', function () {
 
     describe('Promise::all', function () {
         it('resolves when all promises resolve', function () {
-            $result = run(function () {
-                $promise1 = Promise::resolved('value1');
-                $promise2 = Promise::resolved('value2');
-                $promise3 = Promise::resolved('value3');
+            $promise1 = Promise::resolved('value1');
+            $promise2 = Promise::resolved('value2');
+            $promise3 = Promise::resolved('value3');
 
-                return await(Promise::all([$promise1, $promise2, $promise3]));
-            });
+            $result = Promise::all([$promise1, $promise2, $promise3])->await();
 
             expect($result)->toBe(['value1', 'value2', 'value3']);
         });
@@ -24,14 +22,11 @@ describe('Promise Static Methods', function () {
             $exception = new Exception('error');
 
             try {
-                run(function () use ($exception) {
-                    $promise1 = Promise::resolved('value1');
-                    $promise2 = Promise::rejected($exception);
-                    $promise3 = Promise::resolved('value3');
+                $promise1 = Promise::resolved('value1');
+                $promise2 = Promise::rejected($exception);
+                $promise3 = Promise::resolved('value3');
 
-                    return await(Promise::all([$promise1, $promise2, $promise3]));
-                });
-
+                Promise::all([$promise1, $promise2, $promise3])->await();
                 expect(false)->toBeTrue('Expected exception to be thrown');
             } catch (Exception $e) {
                 expect($e)->toBe($exception);
@@ -39,55 +34,45 @@ describe('Promise Static Methods', function () {
         });
 
         it('handles empty array', function () {
-            $result = run(function () {
-                return await(Promise::all([]));
-            });
+            $result = Promise::all([])->await();
 
             expect($result)->toBe([]);
         });
 
         it('preserves order of results', function () {
-            $result = run(function () {
-                $promises = [
-                    Promise::resolved('first'),
-                    Promise::resolved('second'),
-                    Promise::resolved('third'),
-                ];
+            $promises = [
+                Promise::resolved('first'),
+                Promise::resolved('second'),
+                Promise::resolved('third'),
+            ];
 
-                return await(Promise::all($promises));
-            });
+            $result = Promise::all($promises)->await();
 
             expect($result[0])->toBe('first')
                 ->and($result[1])->toBe('second')
-                ->and($result[2])->toBe('third')
-            ;
+                ->and($result[2])->toBe('third');
         });
     });
 
     describe('Promise::any', function () {
         it('resolves with the first resolved promise even when earlier promises reject', function () {
-            $result = run(function () {
-                $promise1 = Promise::rejected(new Exception('first error'));
-                $promise2 = Promise::rejected(new Exception('second error'));
-                $promise3 = Promise::resolved('third success');
-                $promise4 = Promise::resolved('fourth success');
+            $promise1 = Promise::rejected(new Exception('first error'));
+            $promise2 = Promise::rejected(new Exception('second error'));
+            $promise3 = Promise::resolved('third success');
+            $promise4 = Promise::resolved('fourth success');
 
-                return await(Promise::any([$promise1, $promise2, $promise3, $promise4]));
-            });
+            $result = Promise::any([$promise1, $promise2, $promise3, $promise4])->await();
 
             expect($result)->toBe('third success');
         });
 
         it('rejects with AggregateException when all promises reject', function () {
             try {
-                run(function () {
-                    $promise1 = Promise::rejected(new Exception('first error'));
-                    $promise2 = Promise::rejected(new Exception('second error'));
-                    $promise3 = Promise::rejected(new Exception('third error'));
+                $promise1 = Promise::rejected(new Exception('first error'));
+                $promise2 = Promise::rejected(new Exception('second error'));
+                $promise3 = Promise::rejected(new Exception('third error'));
 
-                    return await(Promise::any([$promise1, $promise2, $promise3]));
-                });
-
+                Promise::any([$promise1, $promise2, $promise3])->await();
                 expect(false)->toBeTrue('Expected AggregateException to be thrown');
             } catch (Exception $e) {
                 expect($e)->toBeInstanceOf(Exception::class);
@@ -95,28 +80,23 @@ describe('Promise Static Methods', function () {
         });
 
         it('resolves immediately with the first successful promise in mixed order', function () {
-            $result = run(function () {
-                $promise1 = new Promise;
-                $promise2 = Promise::resolved('quick success');
-                $promise3 = new Promise;
+            $promise1 = new Promise;
+            $promise2 = Promise::resolved('quick success');
+            $promise3 = new Promise;
 
-                $anyPromise = Promise::any([$promise1, $promise2, $promise3]);
+            $anyPromise = Promise::any([$promise1, $promise2, $promise3]);
 
-                $promise1->reject(new Exception('delayed error'));
-                $promise3->resolve('delayed success');
+            $promise1->reject(new Exception('delayed error'));
+            $promise3->resolve('delayed success');
 
-                return await($anyPromise);
-            });
+            $result = $anyPromise->await();
 
             expect($result)->toBe('quick success');
         });
 
         it('handles empty array by rejecting', function () {
             try {
-                run(function () {
-                    return await(Promise::any([]));
-                });
-
+                Promise::any([])->await();
                 expect(false)->toBeTrue('Expected exception to be thrown for empty array');
             } catch (Exception $e) {
                 expect($e)->toBeInstanceOf(Exception::class);
@@ -124,14 +104,12 @@ describe('Promise Static Methods', function () {
         });
 
         it('resolves with first successful promise when mixed with pending promises', function () {
-            $result = run(function () {
-                $promise1 = Promise::rejected(new Exception('error'));
-                $promise2 = new Promise; // Never settles
-                $promise3 = Promise::resolved('success');
-                $promise4 = new Promise; // Never settles
+            $promise1 = Promise::rejected(new Exception('error'));
+            $promise2 = new Promise; // Never settles
+            $promise3 = Promise::resolved('success');
+            $promise4 = new Promise; // Never settles
 
-                return await(Promise::any([$promise1, $promise2, $promise3, $promise4]));
-            });
+            $result = Promise::any([$promise1, $promise2, $promise3, $promise4])->await();
 
             expect($result)->toBe('success');
         });
@@ -139,13 +117,11 @@ describe('Promise Static Methods', function () {
 
     describe('Promise::race', function () {
         it('resolves with the first settled promise value', function () {
-            $result = run(function () {
-                $promise1 = Promise::resolved('fast');
-                $promise2 = new Promise; // never settles
-                $promise3 = new Promise; // never settles
+            $promise1 = Promise::resolved('fast');
+            $promise2 = new Promise; // never settles
+            $promise3 = new Promise; // never settles
 
-                return await(Promise::race([$promise1, $promise2, $promise3]));
-            });
+            $result = Promise::race([$promise1, $promise2, $promise3])->await();
 
             expect($result)->toBe('fast');
         });
@@ -154,13 +130,10 @@ describe('Promise Static Methods', function () {
             $exception = new Exception('fast error');
 
             try {
-                run(function () use ($exception) {
-                    $promise1 = Promise::rejected($exception);
-                    $promise2 = new Promise; // never settles
+                $promise1 = Promise::rejected($exception);
+                $promise2 = new Promise; // never settles
 
-                    return await(Promise::race([$promise1, $promise2]));
-                });
-
+                Promise::race([$promise1, $promise2])->await();
                 expect(false)->toBeTrue('Expected exception to be thrown');
             } catch (Exception $e) {
                 expect($e)->toBe($exception);
