@@ -20,7 +20,7 @@ class CancellablePromise extends Promise implements CancellablePromiseInterface
     private bool $cancelled = false;
 
     /**
-     * {@inheritdoc}
+     * @var callable|null
      */
     private $cancelHandler = null;
 
@@ -40,7 +40,7 @@ class CancellablePromise extends Promise implements CancellablePromiseInterface
         if (! $this->cancelled) {
             $this->cancelled = true;
 
-            if ($this->cancelHandler) {
+            if ($this->cancelHandler !== null) {
                 try {
                     ($this->cancelHandler)();
                 } catch (\Throwable $e) {

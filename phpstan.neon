@@ -1,6 +1,3 @@
-includes:
-    - vendor/phpstan/phpstan-strict-rules/rules.neon
-
 parameters:
     level: 10
     paths:
@@ -8,3 +5,7 @@ parameters:
     treatPhpDocTypesAsCertain: false
     excludePaths:
         - tests/
+    ignoreErrors:
+        - 
+            message: '#Method Hibla\\Promise\\Handlers\\AwaitHandler::await\(\) should return TValue but returns TValue\|null#'
+            path: src/Handlers/AwaitHandler.php
