@@ -2,9 +2,7 @@
 
 namespace Hibla\Promise;
 
-use Hibla\Promise\Interfaces\CancellablePromiseInterface;
 use Hibla\Promise\Interfaces\PromiseInterface;
-use Hibla\Promise\Promise;
 
 /**
  * Wait for all promises to resolve and return their results in order.
@@ -121,8 +119,8 @@ function rejected(mixed $reason): PromiseInterface
  * running and cannot be subject to concurrency limiting.
  *
  * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
- *                                                          Note: Promise instances will be awaited but cannot be truly
- *                                                          limited since they're already running
+ *                                                                               Note: Promise instances will be awaited but cannot be truly
+ *                                                                               limited since they're already running
  * @param  int  $concurrency  Maximum number of tasks to run simultaneously
  * @return PromiseInterface<array<mixed>> Promise that resolves with an array of all results
  */
@@ -144,8 +142,8 @@ function concurrent(array $tasks, int $concurrency = 10): PromiseInterface
  * significant resources without overwhelming the system.
  *
  * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
- *                                                          Note: Promise instances will be awaited but cannot be truly
- *                                                          limited since they're already running
+ *                                                                               Note: Promise instances will be awaited but cannot be truly
+ *                                                                               limited since they're already running
  * @param  int  $batchSize  Size of each batch to process concurrently
  * @param  int|null  $concurrency  Maximum number of concurrent executions per batch
  * @return PromiseInterface<array<mixed>> A promise that resolves with all results
@@ -156,7 +154,7 @@ function batch(array $tasks, int $batchSize = 10, ?int $concurrency = null): Pro
 }
 
 /**
- * Execute multiple tasks concurrently with a specified concurrency limit 
+ * Execute multiple tasks concurrently with a specified concurrency limit
  * and wait for it to settle without rejecting (either resolve or reject).
  *
  * - IMPORTANT: For proper concurrency control, tasks should be callables that return
@@ -164,8 +162,8 @@ function batch(array $tasks, int $batchSize = 10, ?int $concurrency = null): Pro
  * running and cannot be subject to concurrency limiting.
  *
  * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
- *                                                          Note: Promise instances will be awaited but cannot be truly
- *                                                          limited since they're already running
+ *                                                                               Note: Promise instances will be awaited but cannot be truly
+ *                                                                               limited since they're already running
  * @param  int  $concurrency  Maximum number of tasks to run simultaneously
  * @return PromiseInterface<array<int|string, array{status: 'fulfilled'|'rejected', value?: mixed, reason?: mixed}>> Promise that resolves with an array of all settlement results
  */
@@ -175,7 +173,7 @@ function concurrentSettled(array $tasks, int $concurrency = 10): PromiseInterfac
 }
 
 /**
- * Execute multiple tasks in batches with a concurrency limit 
+ * Execute multiple tasks in batches with a concurrency limit
  * and wait for it to settle without rejecting (either resolve or reject).
  *
  * - IMPORTANT: For proper concurrency control, tasks should be callables that return
@@ -188,8 +186,8 @@ function concurrentSettled(array $tasks, int $concurrency = 10): PromiseInterfac
  * significant resources without overwhelming the system.
  *
  * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
- *                                                          Note: Promise instances will be awaited but cannot be truly
- *                                                          limited since they're already running
+ *                                                                               Note: Promise instances will be awaited but cannot be truly
+ *                                                                               limited since they're already running
  * @param  int  $batchSize  Size of each batch to process concurrently
  * @param  int|null  $concurrency  Maximum number of concurrent executions per batch
  * @return PromiseInterface<array<int|string, array{status: 'fulfilled'|'rejected', value?: mixed, reason?: mixed}>> A promise that resolves with all settlement results

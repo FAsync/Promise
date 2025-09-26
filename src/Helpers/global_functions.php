@@ -1,6 +1,5 @@
 <?php
 
-use Hibla\Promise\Interfaces\CancellablePromiseInterface;
 use Hibla\Promise\Interfaces\PromiseInterface;
 use Hibla\Promise\Promise;
 
@@ -134,8 +133,8 @@ if (! function_exists('concurrent')) {
      * running and cannot be subject to concurrency limiting.
      *
      * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
-     *                                                          Note: Promise instances will be awaited but cannot be truly
-     *                                                          limited since they're already running
+     *                                                                               Note: Promise instances will be awaited but cannot be truly
+     *                                                                               limited since they're already running
      * @param  int  $concurrency  Maximum number of tasks to run simultaneously
      * @return PromiseInterface<array<mixed>> Promise that resolves with an array of all results
      */
@@ -155,8 +154,8 @@ if (! function_exists('batch')) {
      * significant resources without overwhelming the system.
      *
      * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
-     *                                                          Note: Promise instances will be awaited but cannot be truly
-     *                                                          limited since they're already running
+     *                                                                               Note: Promise instances will be awaited but cannot be truly
+     *                                                                               limited since they're already running
      * @param  int  $batchSize  Size of each batch to process concurrently
      * @param  int|null  $concurrency  Maximum number of concurrent executions per batch
      * @return PromiseInterface<array<mixed>> A promise that resolves with all results
@@ -169,7 +168,7 @@ if (! function_exists('batch')) {
 
 if (! function_exists('concurrentSettled')) {
     /**
-     * Execute multiple tasks concurrently with a specified concurrency limit 
+     * Execute multiple tasks concurrently with a specified concurrency limit
      * and wait for it to settle without rejecting (either resolve or reject).
      *
      * - IMPORTANT: For proper concurrency control, tasks should be callables that return
@@ -177,8 +176,8 @@ if (! function_exists('concurrentSettled')) {
      * running and cannot be subject to concurrency limiting.
      *
      * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
-     *                                                          Note: Promise instances will be awaited but cannot be truly
-     *                                                          limited since they're already running
+     *                                                                               Note: Promise instances will be awaited but cannot be truly
+     *                                                                               limited since they're already running
      * @param  int  $concurrency  Maximum number of tasks to run simultaneously
      * @return PromiseInterface<array<int|string, array{status: 'fulfilled'|'rejected', value?: mixed, reason?: mixed}>> Promise that resolves with an array of all settlement results
      */
@@ -190,7 +189,7 @@ if (! function_exists('concurrentSettled')) {
 
 if (! function_exists('batchSettled')) {
     /**
-     * Execute multiple tasks in batches with a concurrency limit 
+     * Execute multiple tasks in batches with a concurrency limit
      * and wait for it to settle without rejecting (either resolve or reject).
      *
      * - IMPORTANT: For proper concurrency control, tasks should be callables that return
@@ -203,8 +202,8 @@ if (! function_exists('batchSettled')) {
      * significant resources without overwhelming the system.
      *
      * @param  array<int|string, callable(): mixed|PromiseInterface<mixed>>  $tasks  Array of callables that return Promises, or Promise instances
-     *                                                          Note: Promise instances will be awaited but cannot be truly
-     *                                                          limited since they're already running
+     *                                                                               Note: Promise instances will be awaited but cannot be truly
+     *                                                                               limited since they're already running
      * @param  int  $batchSize  Size of each batch to process concurrently
      * @param  int|null  $concurrency  Maximum number of concurrent executions per batch
      * @return PromiseInterface<array<int|string, array{status: 'fulfilled'|'rejected', value?: mixed, reason?: mixed}>> A promise that resolves with all settlement results

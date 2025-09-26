@@ -217,7 +217,7 @@ describe('CancellablePromise', function () {
 
         // Chain the promise - returns a regular Promise, not CancellablePromise
         $chainedPromise = $promise->then(function ($value) {
-            return $value . ' processed';
+            return $value.' processed';
         });
 
         // Resolve the original promise
@@ -236,11 +236,11 @@ describe('CancellablePromise', function () {
         $chainedPromise = $promise->then(function ($value) use (&$thenCalled) {
             $thenCalled = true;
 
-            return $value . ' processed';
+            return $value.' processed';
         })->catch(function ($reason) use (&$catchCalled) {
             $catchCalled = true;
 
-            return 'caught: ' . $reason->getMessage();
+            return 'caught: '.$reason->getMessage();
         });
 
         $promise->cancel();
@@ -258,7 +258,7 @@ describe('CancellablePromise', function () {
         $promise = new CancellablePromise;
 
         $chainedPromise = $promise->then(function ($value) {
-            return $value . ' processed';
+            return $value.' processed';
         });
 
         $promise->cancel();
@@ -332,9 +332,9 @@ describe('CancellablePromise Integration', function () {
 
     it('works with concurrent operations', function () {
         $tasks = [
-            fn() => delay(0.1),
-            fn() => delay(0.2),
-            fn() => delay(0.3),
+            fn () => delay(0.1),
+            fn () => delay(0.2),
+            fn () => delay(0.3),
         ];
 
         $promise = concurrent($tasks, 2);
@@ -381,7 +381,7 @@ describe('CancellablePromise Edge Cases', function () {
         $promise->cancel();
 
         expect($promise->isCancelled())->toBeTrue();
-        expect($callCount)->toBe(10); 
+        expect($callCount)->toBe(10);
     });
 
     it('works with different timer ID formats', function () {
@@ -607,7 +607,7 @@ describe('CancellablePromise setCancelHandler Usage', function () {
                 $operations[] = 'notify-completion';
                 // Simulate notification
             } catch (Exception $e) {
-                $operations[] = 'cleanup-error: ' . $e->getMessage();
+                $operations[] = 'cleanup-error: '.$e->getMessage();
             }
         });
 

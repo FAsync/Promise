@@ -85,11 +85,11 @@ interface PromiseCollectionInterface
 
     /**
      * Execute multiple tasks with a concurrency limit.
-     * 
+     *
      * - IMPORTANT: For proper concurrency control, tasks should be callables that return
      * Promises, not pre-created Promise instances. Pre-created Promises are already
      * running and cannot be subject to concurrency limiting.
-     * 
+     *
      * Processes tasks in parallel byt with concurrency limit to avoid overwhelming the system
      * with too many concurrent operations.
      *
@@ -101,7 +101,7 @@ interface PromiseCollectionInterface
 
     /**
      * Execute multiple tasks in batches with a concurrency limit.
-     * 
+     *
      * - IMPORTANT: For proper concurrency control, tasks should be callables that return
      * Promises, not pre-created Promise instances. Pre-created Promises are already
      * running and cannot be subject to concurrency limiting.
