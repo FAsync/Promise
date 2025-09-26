@@ -385,4 +385,20 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     {
         return self::getAsyncOps()->batch($tasks, $batchSize, $concurrency);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function concurrentSettled(array $promises): PromiseInterface
+    {
+        return self::getAsyncOps()->concurrentSettled($promises);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function batchSettled(array $tasks, int $batchSize = 10, ?int $concurrency = null): PromiseInterface
+    {
+        return self::getAsyncOps()->batchSettled($tasks, $batchSize, $concurrency);
+    }
 }
