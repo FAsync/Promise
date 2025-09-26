@@ -77,11 +77,11 @@ interface PromiseCollectionInterface
     /**
      * Create a promise that resolves or rejects with a timeout.
      *
-     * @param  callable(): PromiseInterface<mixed>|PromiseInterface<mixed>|array<int|string, callable(): PromiseInterface<mixed>|PromiseInterface<mixed>>  $promises
+     * @param  PromiseInterface<mixed>  $promise  Promise to timeout
      * @param  float  $seconds  Timeout in seconds
      * @return PromiseInterface<mixed>
      */
-    public static function timeout(callable|PromiseInterface|array $promises, float $seconds): PromiseInterface;
+    public static function timeout(PromiseInterface $promise, float $seconds): PromiseInterface;
 
     /**
      * Execute multiple tasks with a concurrency limit.

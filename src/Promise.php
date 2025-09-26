@@ -255,9 +255,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     }
 
     /**
-     * Check if the promise has been resolved.
-     *
-     * @return bool True if the promise is resolved, false otherwise
+     * {@inheritdoc}
      */
     public function isResolved(): bool
     {
@@ -265,9 +263,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     }
 
     /**
-     * Check if the promise has been rejected.
-     *
-     * @return bool True if the promise is rejected, false otherwise
+     * {@inheritdoc}
      */
     public function isRejected(): bool
     {
@@ -275,9 +271,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     }
 
     /**
-     * Check if the promise is still pending.
-     *
-     * @return bool True if the promise is pending, false if settled
+     * {@inheritdoc}
      */
     public function isPending(): bool
     {
@@ -285,12 +279,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     }
 
     /**
-     * Get the resolved value of the promise.
-     *
-     * Only returns a meaningful value if the promise is resolved.
-     * Check isResolved() before calling this method.
-     *
-     * @return mixed The resolved value
+     * {@inheritdoc}
      */
     public function getValue(): mixed
     {
@@ -298,12 +287,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     }
 
     /**
-     * Get the rejection reason of the promise.
-     *
-     * Only returns a meaningful value if the promise is rejected.
-     * Check isRejected() before calling this method.
-     *
-     * @return mixed The rejection reason
+     * {@inheritdoc}
      */
     public function getReason(): mixed
     {
@@ -381,9 +365,9 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     /**
      * {@inheritdoc}
      */
-    public static function timeout(callable|PromiseInterface|array $promises, float $seconds): PromiseInterface
+    public static function timeout(PromiseInterface $promise, float $seconds): PromiseInterface
     {
-        return self::getAsyncOps()->timeout($promises, $seconds);
+        return self::getAsyncOps()->timeout($promise, $seconds);
     }
 
     /**
