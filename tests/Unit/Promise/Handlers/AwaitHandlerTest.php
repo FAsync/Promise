@@ -5,7 +5,7 @@ use Hibla\Promise\Handlers\AwaitHandler;
 use Hibla\Promise\Interfaces\PromiseInterface;
 
 beforeEach(function () {
-    $this->awaitHandler = new AwaitHandler();
+    $this->awaitHandler = new AwaitHandler;
 });
 
 describe('AwaitHandler', function () {
@@ -32,8 +32,9 @@ describe('AwaitHandler', function () {
             $promise->shouldReceive('isRejected')->andReturn(true);
             $promise->shouldReceive('getReason')->andReturn($reason);
 
-            expect(fn() => $this->awaitHandler->await($promise))
-                ->toThrow(Exception::class, 'test error');
+            expect(fn () => $this->awaitHandler->await($promise))
+                ->toThrow(Exception::class, 'test error')
+            ;
         });
 
         it('should throw wrapped exception for non-throwable reason', function () {
@@ -44,8 +45,9 @@ describe('AwaitHandler', function () {
             $promise->shouldReceive('isRejected')->andReturn(true);
             $promise->shouldReceive('getReason')->andReturn($reason);
 
-            expect(fn() => $this->awaitHandler->await($promise))
-                ->toThrow(Exception::class, 'string error');
+            expect(fn () => $this->awaitHandler->await($promise))
+                ->toThrow(Exception::class, 'string error')
+            ;
         });
     });
 
@@ -60,11 +62,14 @@ describe('AwaitHandler', function () {
             $promise->shouldReceive('then')
                 ->andReturnUsing(function ($onFulfilled) use ($promise, $value) {
                     $onFulfilled($value);
+
                     return $promise;
-                });
+                })
+            ;
 
             $promise->shouldReceive('catch')
-                ->andReturn($promise);
+                ->andReturn($promise)
+            ;
 
             $result = $this->awaitHandler->await($promise);
 
@@ -79,16 +84,20 @@ describe('AwaitHandler', function () {
             $promise->shouldReceive('isRejected')->andReturn(false);
 
             $promise->shouldReceive('then')
-                ->andReturn($promise);
+                ->andReturn($promise)
+            ;
 
             $promise->shouldReceive('catch')
                 ->andReturnUsing(function ($onRejected) use ($reason) {
                     $onRejected($reason);
-                    return Mockery::mock(PromiseInterface::class);
-                });
 
-            expect(fn() => $this->awaitHandler->await($promise))
-                ->toThrow(Exception::class, 'async error');
+                    return Mockery::mock(PromiseInterface::class);
+                })
+            ;
+
+            expect(fn () => $this->awaitHandler->await($promise))
+                ->toThrow(Exception::class, 'async error')
+            ;
         });
     });
 
@@ -132,15 +141,17 @@ describe('AwaitHandler', function () {
             $promise->shouldReceive('isRejected')->andReturn(true);
             $promise->shouldReceive('getReason')->andReturn(['key' => 'value']);
 
-            expect(fn() => $this->awaitHandler->await($promise))
+            expect(fn () => $this->awaitHandler->await($promise))
                 ->toThrow(Exception::class)
-                ->and(fn() => $this->awaitHandler->await($promise))
-                ->toThrow(fn(Exception $e) => str_contains($e->getMessage(), 'Array:'));
+                ->and(fn () => $this->awaitHandler->await($promise))
+                ->toThrow(fn (Exception $e) => str_contains($e->getMessage(), 'Array:'))
+            ;
         });
 
         it('should handle object with toString', function () {
             $promise = Mockery::mock(PromiseInterface::class);
-            $reason = new class {
+            $reason = new class
+            {
                 public function __toString(): string
                 {
                     return 'custom error';
@@ -151,8 +162,9 @@ describe('AwaitHandler', function () {
             $promise->shouldReceive('isRejected')->andReturn(true);
             $promise->shouldReceive('getReason')->andReturn($reason);
 
-            expect(fn() => $this->awaitHandler->await($promise))
-                ->toThrow(Exception::class, 'custom error');
+            expect(fn () => $this->awaitHandler->await($promise))
+                ->toThrow(Exception::class, 'custom error')
+            ;
         });
     });
 });

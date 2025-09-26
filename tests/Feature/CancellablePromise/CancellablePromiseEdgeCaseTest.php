@@ -17,7 +17,8 @@ describe('CancellablePromise Edge Cases', function () {
 
         expect($promise->isCancelled())->toBeTrue()
             ->and($promise->isRejected())->toBeTrue()
-            ->and($promise->isResolved())->toBeFalse();
+            ->and($promise->isResolved())->toBeFalse()
+        ;
     });
 
     it('handles multiple cancel handlers', function () {

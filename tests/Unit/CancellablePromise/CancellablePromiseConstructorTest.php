@@ -13,7 +13,8 @@ describe('CancellablePromise Constructor', function () {
 
         expect($resolved)->toBeTrue()
             ->and($promise->isResolved())->toBeTrue()
-            ->and($promise->getValue())->toBe('executor result');
+            ->and($promise->getValue())->toBe('executor result')
+        ;
     });
 
     it('can be cancelled even after executor resolved it', function () {
@@ -22,14 +23,16 @@ describe('CancellablePromise Constructor', function () {
         });
 
         expect($promise->isResolved())->toBeTrue()
-            ->and($promise->getValue())->toBe('executor result');
+            ->and($promise->getValue())->toBe('executor result')
+        ;
 
         $promise->cancel();
 
         expect($promise->isCancelled())->toBeTrue()
             ->and($promise->isResolved())->toBeTrue()
             ->and($promise->isRejected())->toBeFalse()
-            ->and($promise->getValue())->toBe('executor result');
+            ->and($promise->getValue())->toBe('executor result')
+        ;
     });
 
     it('can be cancelled before executor resolves', function () {
@@ -47,6 +50,7 @@ describe('CancellablePromise Constructor', function () {
 
         expect($promise->isCancelled())->toBeTrue()
             ->and($promise->isRejected())->toBeTrue()
-            ->and($promise->isResolved())->toBeFalse();
+            ->and($promise->isResolved())->toBeFalse()
+        ;
     });
 });

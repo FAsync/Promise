@@ -85,8 +85,8 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
 
         $this->executorHandler->executeExecutor(
             $executor,
-            fn ($value) => $this->resolve($value),
-            fn ($reason) => $this->reject($reason)
+            fn ($value = null) => $this->resolve($value),
+            fn ($reason = null) => $this->reject($reason)
         );
     }
 

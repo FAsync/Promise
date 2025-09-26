@@ -1,7 +1,6 @@
 <?php
 
 use Hibla\Promise\CancellablePromise;
-use Hibla\Promise\Promise;
 
 describe('CancellablePromise Integration', function () {
     beforeEach(function () {
@@ -23,6 +22,7 @@ describe('CancellablePromise Integration', function () {
 
         $chained = $cancellable->then(function ($value) use (&$handlerCalled) {
             $handlerCalled = true;
+
             return $value;
         });
 

@@ -19,6 +19,7 @@ describe('Promise Batch Processing', function () {
                     $tasks[] = function () use ($i, &$executionOrder) {
                         return delay(0.1)->then(function () use ($i, &$executionOrder) {
                             $executionOrder[] = $i;
+
                             return "task-{$i}";
                         });
                     };
@@ -66,6 +67,7 @@ describe('Promise Batch Processing', function () {
                     $tasks[] = function () use ($i, &$executionTimes, $startTime) {
                         return delay(0.1)->then(function () use ($i, &$executionTimes, $startTime) {
                             $executionTimes[] = microtime(true) - $startTime;
+
                             return "task-{$i}";
                         });
                     };

@@ -16,7 +16,8 @@ describe('Promise Constructor', function () {
 
         expect($executed)->toBeTrue()
             ->and($resolveCallback)->toBeCallable()
-            ->and($rejectCallback)->toBeCallable();
+            ->and($rejectCallback)->toBeCallable()
+        ;
     });
 
     it('handles executor that resolves immediately', function () {
@@ -25,7 +26,8 @@ describe('Promise Constructor', function () {
         });
 
         expect($promise->isResolved())->toBeTrue()
-            ->and($promise->getValue())->toBe('test value');
+            ->and($promise->getValue())->toBe('test value')
+        ;
     });
 
     it('handles executor that rejects immediately', function () {
@@ -35,7 +37,8 @@ describe('Promise Constructor', function () {
         });
 
         expect($promise->isRejected())->toBeTrue()
-            ->and($promise->getReason())->toBe($exception);
+            ->and($promise->getReason())->toBe($exception)
+        ;
     });
 
     it('handles executor that throws an exception', function () {
@@ -46,6 +49,7 @@ describe('Promise Constructor', function () {
         });
 
         expect($promise->isRejected())->toBeTrue()
-            ->and($promise->getReason())->toBe($exception);
+            ->and($promise->getReason())->toBe($exception)
+        ;
     });
 });

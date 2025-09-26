@@ -7,7 +7,8 @@ describe('Promise Static Factories', function () {
         $promise = Promise::resolved('test value');
 
         expect($promise->isResolved())->toBeTrue()
-            ->and($promise->getValue())->toBe('test value');
+            ->and($promise->getValue())->toBe('test value')
+        ;
     });
 
     it('creates rejected promise with rejected()', function () {
@@ -15,6 +16,7 @@ describe('Promise Static Factories', function () {
         $promise = Promise::rejected($exception);
 
         expect($promise->isRejected())->toBeTrue()
-            ->and($promise->getReason())->toBe($exception);
+            ->and($promise->getReason())->toBe($exception)
+        ;
     });
 });

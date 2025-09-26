@@ -25,7 +25,8 @@ describe('CancellablePromise Real-World Examples', function () {
 
         expect($uploadCancelled)->toBeTrue()
             ->and($tempFileDeleted)->toBeTrue()
-            ->and($uploadPromise->isCancelled())->toBeTrue();
+            ->and($uploadPromise->isCancelled())->toBeTrue()
+        ;
     });
 
     it('database transaction with rollback', function () {
@@ -44,7 +45,8 @@ describe('CancellablePromise Real-World Examples', function () {
 
         expect($transactionStarted)->toBeTrue()
             ->and($transactionRolledBack)->toBeTrue()
-            ->and($dbPromise->isCancelled())->toBeTrue();
+            ->and($dbPromise->isCancelled())->toBeTrue()
+        ;
     });
 
     it('API request with connection cleanup', function () {
@@ -65,6 +67,7 @@ describe('CancellablePromise Real-World Examples', function () {
 
         expect($requestSent)->toBeTrue()
             ->and($connectionClosed)->toBeTrue()
-            ->and($cacheCleared)->toBeTrue();
+            ->and($cacheCleared)->toBeTrue()
+        ;
     });
 });

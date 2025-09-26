@@ -8,7 +8,8 @@ describe('Promise State Management', function () {
 
         expect($promise->isPending())->toBeTrue()
             ->and($promise->isResolved())->toBeFalse()
-            ->and($promise->isRejected())->toBeFalse();
+            ->and($promise->isRejected())->toBeFalse()
+        ;
     });
 
     it('can be resolved with a value', function () {
@@ -18,7 +19,8 @@ describe('Promise State Management', function () {
         expect($promise->isResolved())->toBeTrue()
             ->and($promise->isPending())->toBeFalse()
             ->and($promise->isRejected())->toBeFalse()
-            ->and($promise->getValue())->toBe('test value');
+            ->and($promise->getValue())->toBe('test value')
+        ;
     });
 
     it('can be rejected with a reason', function () {
@@ -29,7 +31,8 @@ describe('Promise State Management', function () {
         expect($promise->isRejected())->toBeTrue()
             ->and($promise->isPending())->toBeFalse()
             ->and($promise->isResolved())->toBeFalse()
-            ->and($promise->getReason())->toBe($exception);
+            ->and($promise->getReason())->toBe($exception)
+        ;
     });
 
     it('ignores multiple resolution attempts', function () {
@@ -59,7 +62,8 @@ describe('Promise State Management', function () {
         $promise->resolve('value');
 
         expect($promise->isRejected())->toBeTrue()
-            ->and($promise->getReason())->toBe($exception);
+            ->and($promise->getReason())->toBe($exception)
+        ;
     });
 
     it('ignores rejection after resolution', function () {
@@ -68,6 +72,7 @@ describe('Promise State Management', function () {
         $promise->reject(new Exception('error'));
 
         expect($promise->isResolved())->toBeTrue()
-            ->and($promise->getValue())->toBe('value');
+            ->and($promise->getValue())->toBe('value')
+        ;
     });
 });

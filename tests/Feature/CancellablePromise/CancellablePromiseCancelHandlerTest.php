@@ -54,7 +54,8 @@ describe('CancellablePromise Cancel Handler', function () {
 
         expect($handler1Called)->toBeFalse()
             ->and($handler2Called)->toBeFalse()
-            ->and($handler3Called)->toBeTrue();
+            ->and($handler3Called)->toBeTrue()
+        ;
     });
 
     it('can handle cancellation with null cancel handler initially', function () {
@@ -81,7 +82,8 @@ describe('CancellablePromise Cancel Handler', function () {
 
         expect($connectionClosed)->toBeTrue()
             ->and($tempFileDeleted)->toBeTrue()
-            ->and($resourcesFreed)->toBeTrue();
+            ->and($resourcesFreed)->toBeTrue()
+        ;
     });
 
     it('handles database connection cleanup', function () {
@@ -98,7 +100,8 @@ describe('CancellablePromise Cancel Handler', function () {
         $promise->cancel();
 
         expect($dbConnection->transactionActive)->toBeFalse()
-            ->and($dbConnection->isConnected)->toBeFalse();
+            ->and($dbConnection->isConnected)->toBeFalse()
+        ;
     });
 
     it('handles complex resource cleanup chain', function () {
@@ -145,7 +148,8 @@ describe('CancellablePromise Cancel Handler', function () {
 
         expect($cancelContext['cancelled_task'])->toBe('task-123')
             ->and($cancelContext['task_type'])->toBe('file-upload')
-            ->and($cancelContext['cancel_time'])->toMatch('/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/');
+            ->and($cancelContext['cancel_time'])->toMatch('/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/')
+        ;
     });
 
     it('handles cancellation with logging and metrics', function () {
@@ -169,6 +173,7 @@ describe('CancellablePromise Cancel Handler', function () {
             ->and($logs)->toContain('[INFO] Cleaning up resources')
             ->and($logs)->toContain('[INFO] Cleanup completed successfully')
             ->and($metrics['cancelled_operations'])->toBe(1)
-            ->and($metrics['last_cancel_time'])->toBeInt();
+            ->and($metrics['last_cancel_time'])->toBeInt()
+        ;
     });
 });

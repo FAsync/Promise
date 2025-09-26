@@ -8,7 +8,8 @@ describe('Promise Value Handling', function () {
         $promise->resolve(null);
 
         expect($promise->isResolved())->toBeTrue()
-            ->and($promise->getValue())->toBeNull();
+            ->and($promise->getValue())->toBeNull()
+        ;
     });
 
     it('can be resolved with complex data types', function () {
@@ -24,7 +25,8 @@ describe('Promise Value Handling', function () {
         $promise->reject('simple error message');
 
         expect($promise->getReason())->toBeInstanceOf(Exception::class)
-            ->and($promise->getReason()->getMessage())->toBe('simple error message');
+            ->and($promise->getReason()->getMessage())->toBe('simple error message')
+        ;
     });
 
     it('returns null when getting value of non-resolved promise', function () {

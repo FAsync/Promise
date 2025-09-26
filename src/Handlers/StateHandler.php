@@ -2,7 +2,7 @@
 
 namespace Hibla\Promise\Handlers;
 
-use Exception;
+use Hibla\Promise\Exceptions\PromiseRejectionException;
 use Throwable;
 
 /**
@@ -124,7 +124,7 @@ final class StateHandler
      *
      * @param  mixed  $reason  The reason to reject with
      */
-    public function reject(mixed $reason): void
+    public function reject(mixed $reason = null): void
     {
         if (! $this->canSettle()) {
             return;
@@ -138,10 +138,6 @@ final class StateHandler
             return;
         }
 
-        $message = is_scalar($reason) || (is_object($reason) && method_exists($reason, '__toString'))
-            ? (string) $reason
-            : 'Rejected with non-stringable value: '.print_r($reason, true);
-
-        $this->reason = new Exception($message);
+        $this->reason = new PromiseRejectionException($reason);
     }
 }

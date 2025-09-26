@@ -57,6 +57,7 @@ describe('CancellablePromise Integration', function () {
         $promise->cancel();
 
         expect($timeoutCleared)->toBeTrue()
-            ->and($promise->isCancelled())->toBeTrue();
+            ->and($promise->isCancelled())->toBeTrue()
+        ;
     });
 });

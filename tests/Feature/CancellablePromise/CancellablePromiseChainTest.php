@@ -29,16 +29,19 @@ describe('CancellablePromise Chaining', function () {
 
         $chainedPromise = $promise->then(function ($value) use (&$thenCalled) {
             $thenCalled = true;
+
             return $value.' processed';
         })->catch(function ($reason) use (&$catchCalled) {
             $catchCalled = true;
+
             return 'caught: '.$reason->getMessage();
         });
 
         $promise->cancel();
 
         expect($promise->isCancelled())->toBeTrue()
-            ->and($promise->isRejected())->toBeTrue();
+            ->and($promise->isRejected())->toBeTrue()
+        ;
         expect($chainedPromise)->toBeInstanceOf(PromiseInterface::class);
     });
 

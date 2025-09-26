@@ -1,7 +1,7 @@
 <?php
 
-use Hibla\Promise\Promise;
 use Hibla\Promise\Interfaces\PromiseInterface;
+use Hibla\Promise\Promise;
 
 describe('Promise Chaining', function () {
     beforeEach(function () {

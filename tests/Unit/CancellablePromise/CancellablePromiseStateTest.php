@@ -16,7 +16,8 @@ describe('CancellablePromise State Management', function () {
         expect($promise->isPending())->toBeTrue()
             ->and($promise->isResolved())->toBeFalse()
             ->and($promise->isRejected())->toBeFalse()
-            ->and($promise->isCancelled())->toBeFalse();
+            ->and($promise->isCancelled())->toBeFalse()
+        ;
     });
 
     it('can be resolved with a value', function () {
@@ -28,7 +29,8 @@ describe('CancellablePromise State Management', function () {
         expect($promise->isResolved())->toBeTrue()
             ->and($promise->isPending())->toBeFalse()
             ->and($promise->isRejected())->toBeFalse()
-            ->and($promise->getValue())->toBe($testValue);
+            ->and($promise->getValue())->toBe($testValue)
+        ;
     });
 
     it('can be rejected with a reason', function () {
@@ -40,7 +42,8 @@ describe('CancellablePromise State Management', function () {
         expect($promise->isRejected())->toBeTrue()
             ->and($promise->isPending())->toBeFalse()
             ->and($promise->isResolved())->toBeFalse()
-            ->and($promise->getReason())->toBe($testReason);
+            ->and($promise->getReason())->toBe($testReason)
+        ;
     });
 
     it('can be cancelled', function () {
@@ -50,7 +53,8 @@ describe('CancellablePromise State Management', function () {
 
         expect($promise->isCancelled())->toBeTrue()
             ->and($promise->isRejected())->toBeTrue()
-            ->and($promise->isPending())->toBeFalse();
+            ->and($promise->isPending())->toBeFalse()
+        ;
     });
 
     it('becomes rejected when cancelled', function () {
@@ -71,7 +75,8 @@ describe('CancellablePromise State Management', function () {
 
         expect($promise->isCancelled())->toBeTrue()
             ->and($promise->isResolved())->toBeFalse()
-            ->and($promise->isRejected())->toBeTrue();
+            ->and($promise->isRejected())->toBeTrue()
+        ;
     });
 
     it('cannot be rejected after cancellation', function () {
@@ -81,7 +86,8 @@ describe('CancellablePromise State Management', function () {
         $promise->reject(new Exception('new error'));
 
         expect($promise->isCancelled())->toBeTrue()
-            ->and($promise->isRejected())->toBeTrue();
+            ->and($promise->isRejected())->toBeTrue()
+        ;
         expect($promise->getReason()->getMessage())->toBe('Promise cancelled');
     });
 
