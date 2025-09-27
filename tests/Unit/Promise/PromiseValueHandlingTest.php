@@ -4,7 +4,7 @@ use Hibla\Promise\Promise;
 
 describe('Promise Value Handling', function () {
     it('can be resolved with null', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $promise->resolve(null);
 
         expect($promise->isResolved())->toBeTrue()
@@ -13,7 +13,7 @@ describe('Promise Value Handling', function () {
     });
 
     it('can be resolved with complex data types', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $data = ['key' => 'value', 'nested' => ['array' => true]];
         $promise->resolve($data);
 
@@ -21,7 +21,7 @@ describe('Promise Value Handling', function () {
     });
 
     it('can be rejected with string reasons', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $promise->reject('simple error message');
 
         expect($promise->getReason())->toBeInstanceOf(Exception::class)
@@ -30,12 +30,12 @@ describe('Promise Value Handling', function () {
     });
 
     it('returns null when getting value of non-resolved promise', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         expect($promise->getValue())->toBeNull();
     });
 
     it('returns null when getting reason of non-rejected promise', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         expect($promise->getReason())->toBeNull();
     });
 });

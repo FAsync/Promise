@@ -14,7 +14,7 @@ describe('Promise Chaining', function () {
             $called = false;
             $receivedValue = null;
 
-            $promise = new Promise;
+            $promise = new Promise();
             $promise->then(function ($value) use (&$called, &$receivedValue) {
                 $called = true;
                 $receivedValue = $value;
@@ -24,14 +24,15 @@ describe('Promise Chaining', function () {
 
             Loop::run();
             expect($called)->toBeTrue()
-                ->and($receivedValue)->toBe('test value');
+                ->and($receivedValue)->toBe('test value')
+            ;
         });
 
         it('calls onRejected when promise is rejected', function () {
             $called = false;
             $receivedReason = null;
 
-            $promise = new Promise;
+            $promise = new Promise();
             $promise->then(null, function ($reason) use (&$called, &$receivedReason) {
                 $called = true;
                 $receivedReason = $reason;
@@ -43,21 +44,23 @@ describe('Promise Chaining', function () {
             Loop::run();
 
             expect($called)->toBeTrue()
-                ->and($receivedReason)->toBeInstanceOf(Exception::class);
+                ->and($receivedReason)->toBeInstanceOf(Exception::class)
+            ;
         });
 
         it('returns a new promise', function () {
-            $promise = new Promise;
+            $promise = new Promise();
             $newPromise = $promise->then(function ($value) {
                 return $value;
             });
 
             expect($newPromise)->toBeInstanceOf(PromiseInterface::class)
-                ->and($newPromise)->not->toBe($promise);
+                ->and($newPromise)->not->toBe($promise)
+            ;
         });
 
         it('transforms values through the chain', function () {
-            $promise = new Promise;
+            $promise = new Promise();
 
             $finalPromise = $promise->then(function ($value) {
                 return $value * 2;
@@ -73,8 +76,8 @@ describe('Promise Chaining', function () {
         });
 
         it('handles promise returning from onFulfilled', function () {
-            $promise = new Promise;
-            $innerPromise = new Promise;
+            $promise = new Promise();
+            $innerPromise = new Promise();
 
             $chainedPromise = $promise->then(function ($value) use ($innerPromise) {
                 return $innerPromise;
@@ -91,7 +94,7 @@ describe('Promise Chaining', function () {
         });
 
         it('handles exceptions in onFulfilled', function () {
-            $promise = new Promise;
+            $promise = new Promise();
             $exception = new Exception('handler error');
 
             $chainedPromise = $promise->then(function ($value) use ($exception) {
@@ -105,7 +108,8 @@ describe('Promise Chaining', function () {
                 expect(false)->toBeTrue('Expected exception to be thrown');
             } catch (Exception $e) {
                 expect($e)->toBeInstanceOf(Exception::class)
-                    ->and($e->getMessage())->toBe('handler error');
+                    ->and($e->getMessage())->toBe('handler error')
+                ;
             }
         });
 
@@ -113,7 +117,7 @@ describe('Promise Chaining', function () {
             $called = false;
             $receivedValue = null;
 
-            $promise = new Promise;
+            $promise = new Promise();
             $promise->resolve('test value');
 
             $promise->then(function ($value) use (&$called, &$receivedValue) {
@@ -124,13 +128,14 @@ describe('Promise Chaining', function () {
             Loop::run();
 
             expect($called)->toBeTrue()
-                ->and($receivedValue)->toBe('test value');
+                ->and($receivedValue)->toBe('test value')
+            ;
         });
 
         it('supports multiple then handlers', function () {
             $calls = [];
 
-            $promise = new Promise;
+            $promise = new Promise();
 
             $promise->then(function ($value) use (&$calls) {
                 $calls[] = 'first: ' . $value;
@@ -146,7 +151,8 @@ describe('Promise Chaining', function () {
 
             expect($calls)->toHaveCount(2)
                 ->and($calls)->toContain('first: test')
-                ->and($calls)->toContain('second: test');
+                ->and($calls)->toContain('second: test')
+            ;
         });
     });
 
@@ -156,7 +162,7 @@ describe('Promise Chaining', function () {
             /** @var Exception|null $receivedReason */
             $receivedReason = null;
 
-            $promise = new Promise;
+            $promise = new Promise();
 
             $promise->catch(function ($reason) use (&$called, &$receivedReason) {
                 $called = true;
@@ -172,11 +178,12 @@ describe('Promise Chaining', function () {
 
             expect($called)->toBeTrue()
                 ->and($receivedReason)->toBeInstanceOf(Exception::class)
-                ->and($receivedReason->getMessage())->toBe('test error');
+                ->and($receivedReason->getMessage())->toBe('test error')
+            ;
         });
 
         it('does not handle resolved promises', function () {
-            $promise = new Promise;
+            $promise = new Promise();
             $called = false;
 
             $promise->catch(function ($reason) use (&$called) {
@@ -191,7 +198,7 @@ describe('Promise Chaining', function () {
         });
 
         it('can recover from rejection', function () {
-            $promise = new Promise;
+            $promise = new Promise();
             $exception = new Exception('error');
 
             $recoveredPromise = $promise->catch(function ($reason) {
@@ -210,7 +217,7 @@ describe('Promise Chaining', function () {
         it('calls finally handler on resolution', function () {
             $called = false;
 
-            $promise = new Promise;
+            $promise = new Promise();
 
             $promise->finally(function () use (&$called) {
                 $called = true;
@@ -226,7 +233,7 @@ describe('Promise Chaining', function () {
         it('calls finally handler on rejection', function () {
             $called = false;
 
-            $promise = new Promise;
+            $promise = new Promise();
 
             $promise->finally(function () use (&$called) {
                 $called = true;
@@ -240,7 +247,7 @@ describe('Promise Chaining', function () {
         });
 
         it('returns the same promise', function () {
-            $promise = new Promise;
+            $promise = new Promise();
             $finallyPromise = $promise->finally(function () {
                 // cleanup
             });

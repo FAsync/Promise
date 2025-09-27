@@ -4,7 +4,7 @@ use Hibla\Promise\CancellablePromise;
 
 describe('CancellablePromise Timer Management', function () {
     it('sets and uses timer ID for cancellation', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $timerId = 'test-timer-123';
 
         $promise->setTimerId($timerId);
@@ -14,7 +14,7 @@ describe('CancellablePromise Timer Management', function () {
     });
 
     it('works with different timer ID formats', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $promise->setTimerId('simple-id');
         $promise->setTimerId('complex-id-123-456');
         $promise->setTimerId('uuid-like-f47ac10b-58cc-4372-a567-0e02b2c3d479');
@@ -25,7 +25,7 @@ describe('CancellablePromise Timer Management', function () {
     });
 
     it('can handle cancellation with empty timer ID', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $promise->setTimerId('');
         $promise->cancel();

@@ -50,7 +50,8 @@ describe('Promise Static Methods', function () {
 
             expect($result[0])->toBe('first')
                 ->and($result[1])->toBe('second')
-                ->and($result[2])->toBe('third');
+                ->and($result[2])->toBe('third')
+            ;
         });
     });
 
@@ -119,9 +120,9 @@ describe('Promise Static Methods', function () {
         });
 
         it('resolves immediately with the first successful promise in mixed order', function () {
-            $promise1 = new Promise;
+            $promise1 = new Promise();
             $promise2 = Promise::resolved('quick success');
-            $promise3 = new Promise;
+            $promise3 = new Promise();
 
             $anyPromise = Promise::any([$promise1, $promise2, $promise3]);
 
@@ -144,9 +145,9 @@ describe('Promise Static Methods', function () {
 
         it('resolves with first successful promise when mixed with pending promises', function () {
             $promise1 = Promise::rejected(new Exception('error'));
-            $promise2 = new Promise; // Never settles
+            $promise2 = new Promise(); // Never settles
             $promise3 = Promise::resolved('success');
-            $promise4 = new Promise; // Never settles
+            $promise4 = new Promise(); // Never settles
 
             $result = Promise::any([$promise1, $promise2, $promise3, $promise4])->await();
 
@@ -157,8 +158,8 @@ describe('Promise Static Methods', function () {
     describe('Promise::race', function () {
         it('resolves with the first settled promise value', function () {
             $promise1 = Promise::resolved('fast');
-            $promise2 = new Promise; // never settles
-            $promise3 = new Promise; // never settles
+            $promise2 = new Promise(); // never settles
+            $promise3 = new Promise(); // never settles
 
             $result = Promise::race([$promise1, $promise2, $promise3])->await();
 
@@ -170,7 +171,7 @@ describe('Promise Static Methods', function () {
 
             try {
                 $promise1 = Promise::rejected($exception);
-                $promise2 = new Promise; // never settles
+                $promise2 = new Promise(); // never settles
 
                 Promise::race([$promise1, $promise2])->await();
                 expect(false)->toBeTrue('Expected exception to be thrown');
@@ -190,6 +191,7 @@ describe('Promise Static Methods', function () {
                 $tasks[] = function () use ($i, &$executionOrder) {
                     return delay(0.1)->then(function () use ($i, &$executionOrder) {
                         $executionOrder[] = $i;
+
                         return "task-{$i}";
                     });
                 };
@@ -208,7 +210,7 @@ describe('Promise Static Methods', function () {
 
             $tasks = [];
             for ($i = 0; $i < 6; $i++) {
-                $tasks[] = fn() => delay(0.1)->then(fn() => "task-{$i}");
+                $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
             }
 
             $result = Promise::concurrent($tasks, 2)->await();
@@ -228,9 +230,9 @@ describe('Promise Static Methods', function () {
         it('handles task failures', function () {
             try {
                 $tasks = [
-                    fn() => delay(0.05)->then(fn() => 'task-0'),
-                    fn() => delay(0.05)->then(fn() => throw new Exception('concurrent error')),
-                    fn() => delay(0.05)->then(fn() => 'task-2'),
+                    fn () => delay(0.05)->then(fn () => 'task-0'),
+                    fn () => delay(0.05)->then(fn () => throw new Exception('concurrent error')),
+                    fn () => delay(0.05)->then(fn () => 'task-2'),
                 ];
 
                 Promise::concurrent($tasks, 2)->await();
@@ -244,7 +246,7 @@ describe('Promise Static Methods', function () {
             $tasks = [];
             for ($i = 0; $i < 5; $i++) {
                 $tasks[] = function () use ($i) {
-                    return delay(0.05)->then(fn() => "task-{$i}");
+                    return delay(0.05)->then(fn () => "task-{$i}");
                 };
             }
 
@@ -260,10 +262,10 @@ describe('Promise Static Methods', function () {
     describe('Promise::concurrentSettled', function () {
         it('executes tasks with concurrency limit and returns all settlement results', function () {
             $tasks = [
-                fn() => delay(0.05)->then(fn() => 'success1'),
-                fn() => delay(0.05)->then(fn() => throw new Exception('error1')),
-                fn() => delay(0.05)->then(fn() => 'success2'),
-                fn() => delay(0.05)->then(fn() => throw new Exception('error2')),
+                fn () => delay(0.05)->then(fn () => 'success1'),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error1')),
+                fn () => delay(0.05)->then(fn () => 'success2'),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error2')),
             ];
 
             $result = Promise::concurrentSettled($tasks, 2)->await();
@@ -290,9 +292,9 @@ describe('Promise Static Methods', function () {
 
         it('never rejects even when all tasks fail', function () {
             $tasks = [
-                fn() => delay(0.05)->then(fn() => throw new Exception('error1')),
-                fn() => delay(0.05)->then(fn() => throw new Exception('error2')),
-                fn() => delay(0.05)->then(fn() => throw new Exception('error3')),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error1')),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error2')),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error3')),
             ];
 
             $result = Promise::concurrentSettled($tasks, 2)->await();
@@ -309,7 +311,7 @@ describe('Promise Static Methods', function () {
 
             $tasks = [];
             for ($i = 0; $i < 6; $i++) {
-                $tasks[] = fn() => delay(0.1)->then(fn() => "task-{$i}");
+                $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
             }
 
             $result = Promise::concurrentSettled($tasks, 2)->await();
@@ -332,9 +334,9 @@ describe('Promise Static Methods', function () {
             $tasks = [];
             for ($i = 0; $i < 8; $i++) {
                 if ($i === 3 || $i === 6) {
-                    $tasks[] = fn() => delay(0.05)->then(fn() => throw new Exception("error-{$i}"));
+                    $tasks[] = fn () => delay(0.05)->then(fn () => throw new Exception("error-{$i}"));
                 } else {
-                    $tasks[] = fn() => delay(0.05)->then(fn() => "task-{$i}");
+                    $tasks[] = fn () => delay(0.05)->then(fn () => "task-{$i}");
                 }
             }
 
@@ -355,7 +357,7 @@ describe('Promise Static Methods', function () {
 
             $tasks = [];
             for ($i = 0; $i < 9; $i++) {
-                $tasks[] = fn() => delay(0.1)->then(fn() => "task-{$i}");
+                $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
             }
 
             $result = Promise::batchSettled($tasks, 3)->await();
@@ -371,7 +373,7 @@ describe('Promise Static Methods', function () {
 
             $tasks = [];
             for ($i = 0; $i < 6; $i++) {
-                $tasks[] = fn() => delay(0.1)->then(fn() => "task-{$i}");
+                $tasks[] = fn () => delay(0.1)->then(fn () => "task-{$i}");
             }
 
             $result = Promise::batchSettled($tasks, 4, 2)->await();
@@ -384,9 +386,9 @@ describe('Promise Static Methods', function () {
 
         it('never rejects even when all tasks fail', function () {
             $tasks = [
-                fn() => delay(0.05)->then(fn() => throw new Exception('error1')),
-                fn() => delay(0.05)->then(fn() => throw new Exception('error2')),
-                fn() => delay(0.05)->then(fn() => throw new Exception('error3')),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error1')),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error2')),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error3')),
             ];
 
             $result = Promise::batchSettled($tasks, 2)->await();
@@ -406,9 +408,9 @@ describe('Promise Static Methods', function () {
 
         it('works with batch size larger than task count', function () {
             $tasks = [
-                fn() => delay(0.05)->then(fn() => 'task-0'),
-                fn() => delay(0.05)->then(fn() => throw new Exception('error')),
-                fn() => delay(0.05)->then(fn() => 'task-2'),
+                fn () => delay(0.05)->then(fn () => 'task-0'),
+                fn () => delay(0.05)->then(fn () => throw new Exception('error')),
+                fn () => delay(0.05)->then(fn () => 'task-2'),
             ];
 
             $result = Promise::batchSettled($tasks, 10)->await();
@@ -427,7 +429,7 @@ describe('Promise Static Methods', function () {
             $tasks = [];
             for ($i = 0; $i < 7; $i++) {
                 $tasks[] = function () use ($i) {
-                    return delay(0.05)->then(fn() => "task-{$i}");
+                    return delay(0.05)->then(fn () => "task-{$i}");
                 };
             }
 
@@ -447,7 +449,7 @@ describe('Promise Static Methods', function () {
 
     describe('Promise::timeout', function () {
         it('resolves if promise completes within timeout', function () {
-            $promise = delay(0.05)->then(fn() => 'success');
+            $promise = delay(0.05)->then(fn () => 'success');
 
             $result = Promise::timeout($promise, 0.1)->await();
 
@@ -456,7 +458,7 @@ describe('Promise Static Methods', function () {
 
         it('rejects if promise exceeds timeout', function () {
             try {
-                $promise = delay(0.2)->then(fn() => 'too slow');
+                $promise = delay(0.2)->then(fn () => 'too slow');
 
                 Promise::timeout($promise, 0.1)->await();
                 expect(false)->toBeTrue('Expected timeout exception');
@@ -467,7 +469,7 @@ describe('Promise Static Methods', function () {
 
         it('rejects immediately if original promise rejects', function () {
             try {
-                $promise = delay(0.05)->then(fn() => throw new Exception('original error'));
+                $promise = delay(0.05)->then(fn () => throw new Exception('original error'));
 
                 Promise::timeout($promise, 0.1)->await();
                 expect(false)->toBeTrue('Expected original exception');

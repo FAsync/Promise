@@ -5,7 +5,7 @@ use Hibla\Promise\Handlers\ChainHandler;
 use Hibla\Promise\Interfaces\PromiseInterface;
 
 beforeEach(function () {
-    $this->chainHandler = new ChainHandler;
+    $this->chainHandler = new ChainHandler();
 });
 
 describe('ChainHandler', function () {

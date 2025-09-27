@@ -3,7 +3,7 @@
 use Hibla\Promise\Handlers\ExecutorHandler;
 
 beforeEach(function () {
-    $this->executorHandler = new ExecutorHandler;
+    $this->executorHandler = new ExecutorHandler();
 });
 
 describe('ExecutorHandler', function () {

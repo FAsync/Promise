@@ -8,7 +8,7 @@ describe('CancellablePromise Edge Cases', function () {
     });
 
     it('handles rapid cancel and resolve attempts', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $promise->cancel();
         $promise->resolve('value');
@@ -22,7 +22,7 @@ describe('CancellablePromise Edge Cases', function () {
     });
 
     it('handles multiple cancel handlers', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $callCount = 0;
 
         $promise->setCancelHandler(function () use (&$callCount) {
@@ -42,7 +42,7 @@ describe('CancellablePromise Edge Cases', function () {
         $promises = [];
 
         for ($i = 0; $i < 10; $i++) {
-            $promises[] = new CancellablePromise;
+            $promises[] = new CancellablePromise();
         }
 
         foreach ($promises as $promise) {

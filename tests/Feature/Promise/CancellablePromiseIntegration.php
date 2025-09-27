@@ -8,7 +8,7 @@ describe('CancellablePromise Integration', function () {
     });
 
     it('tracks root cancellable promise in chain', function () {
-        $cancellable = new CancellablePromise;
+        $cancellable = new CancellablePromise();
         $chained = $cancellable->then(function ($value) {
             return $value * 2;
         });
@@ -17,7 +17,7 @@ describe('CancellablePromise Integration', function () {
     });
 
     it('skips handlers when root promise is cancelled', function () {
-        $cancellable = new CancellablePromise;
+        $cancellable = new CancellablePromise();
         $handlerCalled = false;
 
         $chained = $cancellable->then(function ($value) use (&$handlerCalled) {

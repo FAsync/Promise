@@ -3,7 +3,7 @@
 use Hibla\Promise\Handlers\CallbackHandler;
 
 beforeEach(function () {
-    $this->callbackHandler = new CallbackHandler;
+    $this->callbackHandler = new CallbackHandler();
 });
 
 describe('CallbackHandler', function () {

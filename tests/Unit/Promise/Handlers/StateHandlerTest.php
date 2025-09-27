@@ -3,7 +3,7 @@
 use Hibla\Promise\Handlers\StateHandler;
 
 beforeEach(function () {
-    $this->stateHandler = new StateHandler;
+    $this->stateHandler = new StateHandler();
 });
 
 describe('StateHandler', function () {
@@ -104,8 +104,7 @@ describe('StateHandler', function () {
         });
 
         it('should handle object with toString method', function () {
-            $reason = new class
-            {
+            $reason = new class () {
                 public function __toString(): string
                 {
                     return 'custom error';
@@ -151,7 +150,8 @@ describe('StateHandler', function () {
 
             expect($this->stateHandler->isRejected())->toBeTrue()
                 ->and($this->stateHandler->isResolved())->toBeFalse()
-                ->and($this->stateHandler->getReason())->toBe($reason);
+                ->and($this->stateHandler->getReason())->toBe($reason)
+            ;
         });
     });
 });

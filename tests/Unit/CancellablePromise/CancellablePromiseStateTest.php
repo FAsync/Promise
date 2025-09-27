@@ -5,13 +5,13 @@ use Hibla\Promise\Interfaces\CancellablePromiseInterface;
 
 describe('CancellablePromise State Management', function () {
     it('implements CancellablePromiseInterface', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         expect($promise)->toBeInstanceOf(CancellablePromiseInterface::class);
     });
 
     it('starts in pending state', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         expect($promise->isPending())->toBeTrue()
             ->and($promise->isResolved())->toBeFalse()
@@ -21,7 +21,7 @@ describe('CancellablePromise State Management', function () {
     });
 
     it('can be resolved with a value', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $testValue = 'test result';
 
         $promise->resolve($testValue);
@@ -34,7 +34,7 @@ describe('CancellablePromise State Management', function () {
     });
 
     it('can be rejected with a reason', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $testReason = new Exception('test error');
 
         $promise->reject($testReason);
@@ -47,7 +47,7 @@ describe('CancellablePromise State Management', function () {
     });
 
     it('can be cancelled', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $promise->cancel();
 
@@ -58,7 +58,7 @@ describe('CancellablePromise State Management', function () {
     });
 
     it('becomes rejected when cancelled', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $promise->cancel();
 
@@ -68,7 +68,7 @@ describe('CancellablePromise State Management', function () {
     });
 
     it('cannot be resolved after cancellation', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $promise->cancel();
         $promise->resolve('test value');
@@ -80,7 +80,7 @@ describe('CancellablePromise State Management', function () {
     });
 
     it('cannot be rejected after cancellation', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $promise->cancel();
         $promise->reject(new Exception('new error'));
@@ -92,7 +92,7 @@ describe('CancellablePromise State Management', function () {
     });
 
     it('ignores multiple cancellation attempts', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $cancelCount = 0;
 
         $promise->setCancelHandler(function () use (&$cancelCount) {
@@ -104,6 +104,7 @@ describe('CancellablePromise State Management', function () {
         $promise->cancel();
 
         expect($cancelCount)->toBe(1)
-            ->and($promise->isCancelled())->toBeTrue();
+            ->and($promise->isCancelled())->toBeTrue()
+        ;
     });
 });

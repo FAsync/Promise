@@ -74,10 +74,10 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
      */
     public function __construct(?callable $executor = null)
     {
-        $this->stateHandler = new StateHandler;
-        $this->callbackHandler = new CallbackHandler;
-        $this->executorHandler = new ExecutorHandler;
-        $this->chainHandler = new ChainHandler;
+        $this->stateHandler = new StateHandler();
+        $this->callbackHandler = new CallbackHandler();
+        $this->executorHandler = new ExecutorHandler();
+        $this->chainHandler = new ChainHandler();
         $this->resolutionHandler = new ResolutionHandler(
             $this->stateHandler,
             $this->callbackHandler
@@ -95,7 +95,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
      */
     public function await(bool $resetEventLoop = true): mixed
     {
-        $this->awaitHandler ??= new AwaitHandler;
+        $this->awaitHandler ??= new AwaitHandler();
 
         return $this->awaitHandler->await($this, $resetEventLoop);
     }
@@ -298,7 +298,7 @@ class Promise implements PromiseCollectionInterface, PromiseInterface
     private static function getAsyncOps(): AsyncOperations
     {
         if (self::$asyncOps === null) {
-            self::$asyncOps = new AsyncOperations;
+            self::$asyncOps = new AsyncOperations();
         }
 
         return self::$asyncOps;

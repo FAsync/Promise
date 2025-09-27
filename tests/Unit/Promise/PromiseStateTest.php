@@ -4,7 +4,7 @@ use Hibla\Promise\Promise;
 
 describe('Promise State Management', function () {
     it('creates a pending promise with no executor', function () {
-        $promise = new Promise;
+        $promise = new Promise();
 
         expect($promise->isPending())->toBeTrue()
             ->and($promise->isResolved())->toBeFalse()
@@ -13,7 +13,7 @@ describe('Promise State Management', function () {
     });
 
     it('can be resolved with a value', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $promise->resolve('test value');
 
         expect($promise->isResolved())->toBeTrue()
@@ -24,7 +24,7 @@ describe('Promise State Management', function () {
     });
 
     it('can be rejected with a reason', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $exception = new Exception('test error');
         $promise->reject($exception);
 
@@ -36,7 +36,7 @@ describe('Promise State Management', function () {
     });
 
     it('ignores multiple resolution attempts', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $promise->resolve('first value');
         $promise->resolve('second value');
 
@@ -44,7 +44,7 @@ describe('Promise State Management', function () {
     });
 
     it('ignores multiple rejection attempts', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $firstError = new Exception('first error');
         $secondError = new Exception('second error');
 
@@ -55,7 +55,7 @@ describe('Promise State Management', function () {
     });
 
     it('ignores resolution after rejection', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $exception = new Exception('error');
 
         $promise->reject($exception);
@@ -67,7 +67,7 @@ describe('Promise State Management', function () {
     });
 
     it('ignores rejection after resolution', function () {
-        $promise = new Promise;
+        $promise = new Promise();
         $promise->resolve('value');
         $promise->reject(new Exception('error'));
 

@@ -10,7 +10,7 @@ describe('CancellablePromise Chaining', function () {
     });
 
     it('supports promise chaining', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $chainedPromise = $promise->then(function ($value) {
             return $value.' processed';
@@ -23,7 +23,7 @@ describe('CancellablePromise Chaining', function () {
     });
 
     it('handles cancellation in promise chain', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $thenCalled = false;
         $catchCalled = false;
 
@@ -46,7 +46,7 @@ describe('CancellablePromise Chaining', function () {
     });
 
     it('maintains cancellation state through chain', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
 
         $chainedPromise = $promise->then(function ($value) {
             return $value.' processed';
@@ -62,7 +62,7 @@ describe('CancellablePromise Chaining', function () {
     });
 
     it('can set finally callback', function () {
-        $promise = new CancellablePromise;
+        $promise = new CancellablePromise();
         $finallyCalled = false;
 
         $finalPromise = $promise->finally(function () use (&$finallyCalled) {

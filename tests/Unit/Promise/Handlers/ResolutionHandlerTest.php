@@ -5,8 +5,8 @@ use Hibla\Promise\Handlers\ResolutionHandler;
 use Hibla\Promise\Handlers\StateHandler;
 
 beforeEach(function () {
-    $this->stateHandler = new StateHandler;
-    $this->callbackHandler = new CallbackHandler;
+    $this->stateHandler = new StateHandler();
+    $this->callbackHandler = new CallbackHandler();
     $this->resolutionHandler = new ResolutionHandler($this->stateHandler, $this->callbackHandler);
 });
 

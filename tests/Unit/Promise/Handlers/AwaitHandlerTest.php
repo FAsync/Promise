@@ -5,7 +5,7 @@ use Hibla\Promise\Handlers\AwaitHandler;
 use Hibla\Promise\Interfaces\PromiseInterface;
 
 beforeEach(function () {
-    $this->awaitHandler = new AwaitHandler;
+    $this->awaitHandler = new AwaitHandler();
 });
 
 describe('AwaitHandler', function () {
@@ -150,8 +150,7 @@ describe('AwaitHandler', function () {
 
         it('should handle object with toString', function () {
             $promise = Mockery::mock(PromiseInterface::class);
-            $reason = new class
-            {
+            $reason = new class () {
                 public function __toString(): string
                 {
                     return 'custom error';
